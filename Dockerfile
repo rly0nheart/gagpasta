@@ -6,6 +6,6 @@ COPY . .
 
 RUN pip install --upgrade pip && pip install .
 
-EXPOSE 5000/http
+EXPOSE 5000
 
 ENTRYPOINT ["gagpasta"]
