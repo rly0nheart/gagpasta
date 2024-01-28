@@ -1,0 +1,39 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "gagpasta"
+version = "1.0.0"
+description = "9Gag post scraper."
+authors = ["Richard Mwewa <rly0nheart@duck.com>"]
+readme = "README.md"
+license = "MIT License"
+homepage = "https://pypi.org/project/gagpasta"
+documentation = "https://github.com/rly0nheart/gagpasta/wiki"
+repository = "https://github.com/rly0nheart/gagpasta"
+keywords = ["9gag-crawler", "9gag-scraping", "9gag", "9gag-api", "9gag-data"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Programming Language :: Visual Basic",
+    "Programming Language :: Python :: 3",
+    "Intended Audience :: End Users/Desktop",
+    "Intended Audience :: Information Technology",
+    "Operating System :: OS Independent",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English"
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+aiohttp = "*"
+flask = { version = "*", extras = ["async"] }
+
+[tool.poetry.dev-dependencies]
+pytest = "*"
+pytest-asyncio = "*"
+pytest-html = "*"
+
+
+[tool.poetry.scripts]
+gagpasta = "gagpasta.web:run"

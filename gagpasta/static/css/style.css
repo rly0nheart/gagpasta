@@ -1,0 +1,305 @@
+<style>
+    @font-face {
+        font-family: 'Bebas Neue';
+        src: url('/static/fonts/BebasNeue-Regular.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    /* Global Transition Style */
+    body,
+    h1,
+    .gag,
+    .tag,
+    .top-nav ul li a,
+    form,
+    .download-gag,
+    label,
+    select,
+    input[type='text'],
+    input[type='number'],
+    button,
+    .gag-content img,
+    .author-image img,
+    .author-info,
+    .username,
+    .tags,
+    .gag-content,
+    .top-nav,
+    .bottom-nav,
+    footer {
+        transition: background-color 0.3s, color 0.3s, box-shadow 0.3s, border-color 0.3s; /* Smooth transition for theme change */
+    }
+
+    body {
+        display: none;
+        padding-top: 50px;
+        text-align: center;
+        font-family: 'Bebas Neue', sans-serif;
+    }
+
+    h1 {
+        font-family: 'Bebas Neue', sans-serif;
+        text-align: center;
+    }
+
+    .gag {
+            font-family: 'Bebas Neue', sans-serif;
+            position: relative;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+
+    .media-container {
+        display: flex;
+        flex-direction: row;
+        align-items: start;
+        justify-content: space-between;
+    }
+
+    .gag-content {
+        text-align: left;
+        flex: 1;
+    }
+
+    .gag-content img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }
+
+    .gag-stats {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: start;
+        flex-wrap: wrap;
+        background-color: transparent;
+
+    }
+
+    .stats-spacer {
+        flex-grow: 1; /* push the download icon to the right */
+    }
+
+
+    .author-image img {
+        max-width: 80px;
+        max-height: 80px;
+        border-radius: 10%;
+        margin-right: 10px;
+        object-fit: cover;
+    }
+
+    .gag-index,
+    .upvotes-count,
+    .downvotes-count,
+    .download-gag,
+    .comments-count,
+    .awards-count {
+        font-family: 'Bebas Neue', sans-serif;
+        display: inline-block;
+        margin-top: 10px;
+        padding: 5px 10px;
+        font-size: 1em;
+        cursor: default;
+    }
+
+    .upvotes-count,
+    .downvotes-count,
+    .download-gag,
+    .gag-index,
+    .comments-count,
+    .awards-count {
+        background-color: transparent;
+        color: inherit;
+    }
+
+    .author-info {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    .author-name {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .author-name a, .gag-content h3 a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .author-name a:hover, .gag-content h3 a:hover {
+        text-decoration: underline;
+    }
+
+    .username {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 0.9em;
+        margin-top: 4px;
+    }
+
+    .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 10px;
+        justify-content: flex-start;
+    }
+
+    .tag {
+        display: inline-block;
+        padding: 5px 10px;
+        color: #6c757d;
+        background-color: transparent;
+        font-size: 0.95em;
+        border-radius: 50px;
+        border: 2px solid;
+        cursor: default;
+        margin: 2px;
+    }
+
+    .gag-content {
+        text-align: left;
+    }
+
+    /* Style for the top-nav */
+    .top-nav {
+        top: 0; /* Stick to the top of the page */
+        right: 0; /* Align to the right */
+        left: 0; /* Stretch from left to right */
+        position: fixed;
+        z-index: 1000;
+        padding: 10px;
+        /* border-radius: 50px; */
+        text-align: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional shadow for depth */
+        display: flex;
+        justify-content: center; /* Center children horizontally */
+        align-items: center; /* Center children vertically */
+        flex-wrap: wrap; /* Wrap items to next line */
+
+
+        margin: 0 auto; /* Center the nav bar in the viewport */
+    }
+
+    .top-nav li {
+        cursor: pointer;
+    }
+
+    .top-nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .top-nav ul li {
+        display: inline-block;
+        margin-right: 20px;
+    }
+
+    .top-nav ul li a {
+        text-decoration: none;
+        font-weight: bold;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .top-nav ul li a i {
+        margin-right: 5px;
+        font-size: 1.2em;
+    }
+
+    /* Other styles */
+    form {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 20px;
+        border-radius: 8px;
+        font-family: 'Bebas Neue', sans-serif;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    select, input[type='text'], input[type='number'] {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
+        border: 1px solid;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-family: 'Bebas Neue', sans-serif;
+    }
+
+    input:required:invalid {
+        border: 2px solid #ff6b81;
+    }
+
+    button {
+            font-size: 16px;
+            color: inherit;
+            background: none;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    footer {
+        text-align: center;
+        margin-top: 40px;
+        font-size: 0.8em;
+        font-family: 'Bebas Neue', sans-serif;
+    }
+
+    .download-gag:hover {
+        color: #007bff; /* Change color on hover */
+    }
+
+    /* Day/Night style for the body */
+    body.dark-mode {
+        background-color: #181a21;
+        color: #dcdcdc;
+        }
+
+    body.light-mode {
+        background-color: #f2f2f2;
+        color: #333;
+    }
+
+
+    /* Style for the no-gags-message */
+    .no-gags-message {
+        margin: 20px auto;
+        padding: 20px;
+        text-align: center;
+        font-size: 1.1em;
+    }
+
+    .no-gags-message span {
+        color: inherit;
+    }
+
+
+
+
+</style>

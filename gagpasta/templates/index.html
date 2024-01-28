@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Gag Pasta — Find Freshly Served 9Gag Posts, Al Dente!👌🏾</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/theme-light.css">
+    <link rel="stylesheet" href="static/css/theme-dark.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+    <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+</head>
+
+<body onload="initialisePage()">
+<img id="headerImage" src="static/images/gagpasta-dark.png" alt="Gag Pasta header image"
+     style="max-width:100%;height:auto;display: none;">
+<header>
+    <div class="top-nav">
+        <ul>
+            <li>
+                <a id="homeButton" style="display: none;" onclick="goHome(); return false;">
+                    <i class="fas fa-house"></i>Home
+                </a>
+            </li>
+            <li>
+                <a id="themeToggle" onclick="switchMode(); return false;">
+                    <i class="fas fa-adjust"></i> Theme
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/rly0nheart/gagpasta" rel="noopener noreferrer">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </li>
+            <li>
+                <a href="https://www.gnu.org/licenses/gpl-3.0.txt"
+                   rel="noopener norefresher">
+                    <i class="fas fa-book"></i> License
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div id="loading" style="display: none;">
+        <img src="static/images/loading.gif" alt="Loading..."/>
+    </div>
+</header>
+
+<form id="gagsForm" action="/api/gags" method="get">
+    <div>
+        <label for="gagsSource">Select Gags' Source:</label>
+        <select id="gagsSource" name="source" required>
+            <option value="tag">Tag</option>
+            <option value="group">Group</option>
+        </select>
+    </div>
+
+    <div id="tagInput" style="display:none;">
+        <label for="tagName">Tag Name:</label>
+        <input type="text" id="tagName" name="tag-name" placeholder="e.g., doge">
+    </div>
+
+    <div id="groupInput" style="display:none;">
+        <label for="groupName">Select Group Name:</label>
+        <select id="groupName" name="group-name">
+            <option value="wtf">WTF</option>
+            <option value="funny">Funny</option>
+            <option value="history">History</option>
+            <!-- <option value="music">Music</option> -->
+            <option value="gaming">Gaming</option>
+            <option value="comic">Comic</option>
+            <option value="wholesome">Wholesome</option>
+            <option value="anime">Anime</option>
+            <option value="animals">Animals</option>
+            <!-- <option value="relationship">Relationship</option> -->
+            <option value="science">Science</option>
+            <!-- <option value="food">Food</option> -->
+            <option value="superhero">Superhero</option>
+
+
+        </select>
+    </div>
+    <div>
+        <label for="mediaType">Media Type:</label>
+        <select id="mediaType" name="media">
+            <option value=all>All</option>
+            <option value="animated">Animated</option>
+            <option value="photo">Photo</option>
+            <option value="article">Article</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="gagsType">Gags Type:</label>
+        <select id="gagsType" name="gags-type">
+            <option value="home">Home</option>
+            <option value="top">Top</option>
+            <option value="trending">Trending</option>
+            <option value="fresh">Fresh</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="gagsLimit">Limit:</label>
+        <input type="number" id="gagsLimit" name="limit" itemtype="number" value=10 min=10
+               onkeydown="return false;">
+    </div>
+
+    <button type="submit">
+        <i class="fas fa-arrow-right"></i>
+    </button>
+
+</form>
+
+<div id="results" style="display: none;"></div>
+
+<footer>
+    <p>&copy; Copyright
+        <a href="https://rly0nheart.github.io" target="_blank" rel="noopener noreferrer">Richard Mwewa</a>
+        <span id="year"></span>. All rights reserved.
+    </p>
+</footer>
+
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+        data-id="rly0nheart" data-description="Support me on Buy me a coffee!"
+        data-message="Each coffee you buy directly helps with the domain and hosting costs, ensuring that I can keep the site up and running.
+        Thank you for being an amazing supporter! ❤️"
+        data-color="#5F7FFF"
+        data-position="Right" data-x_margin="18" data-y_margin="18">
+</script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="static/js/main.js"></script>
+<script src="static/js/FileSaver.js"></script>
+<script src="static/js/gagsDisplay.js"></script>
+
+</body>
+</html>
