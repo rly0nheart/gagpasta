@@ -117,7 +117,6 @@ $(document).ready(function() {
     // Event listener for leaving the hover on the video
     $(document).on('mouseleave', '.hover-video', function() {
         this.pause();
-        this.currentTime = 0; // Rewind the video to the start
     });
 
     function downloadJsonData(data, title) {
