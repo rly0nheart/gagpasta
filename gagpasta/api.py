@@ -6,6 +6,8 @@ import aiohttp
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 BASE_9GAG_API_ENDPOINT: str = "https://9gag.com/v1"
+TAGGED_GAGS_ENDPOINT: str = f"{BASE_9GAG_API_ENDPOINT}/tag-posts/tag/%s"
+GROUP_GAGS_ENDPOINT: str = f"{BASE_9GAG_API_ENDPOINT}/group-posts/group/%s"
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -66,9 +68,7 @@ async def paginate(
 
     while len(gags_list) < limit:
         pagination_endpoint: str = (
-            f"{BASE_9GAG_API_ENDPOINT}/{initial_endpoint}?{next_cursor}"
-            if is_pagination
-            else f"{BASE_9GAG_API_ENDPOINT}/{initial_endpoint}"
+            f"{initial_endpoint}?{next_cursor}" if is_pagination else initial_endpoint
         )
 
         response_data = await get_data(endpoint=pagination_endpoint, session=session)
@@ -101,7 +101,7 @@ async def get_gags(
     media_type: Literal["animated", "photo", "article"] = None,
 ) -> dict:
     # Fetch the original response
-    response = await get_data(f"{BASE_9GAG_API_ENDPOINT}/{endpoint}", session)
+    response = await get_data(endpoint, session)
 
     # Paginate gags and update the 'posts' key in the original response
     response.get("data")["posts"] = await paginate(

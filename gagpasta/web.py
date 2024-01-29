@@ -1,5 +1,4 @@
-import webbrowser
-from threading import Timer
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 import aiohttp
 from flask import (
@@ -9,9 +8,13 @@ from flask import (
     render_template,
 )
 
-from .api import get_gags
+from .api import get_gags, GROUP_GAGS_ENDPOINT, TAGGED_GAGS_ENDPOINT
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 app = Flask(__name__)
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 
 @app.route("/", methods=["GET"])
@@ -22,6 +25,9 @@ def index():
     :return: The HTML template for the index page.
     """
     return render_template("index.html")
+
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 
 @app.route("/api/gags", methods=["GET"])
@@ -51,9 +57,12 @@ async def gags():
 
     # Determine the API endpoint based on the source parameter
     gags_endpoint = (
-        (f"tag-posts/tag/{tag_name}/type/{gags_type}", f"tag #{tag_name}")
+        (f"{TAGGED_GAGS_ENDPOINT % tag_name}/type/{gags_type}", f"tag #{tag_name}")
         if gags_source == "tag"
-        else (f"group-posts/group/{group_name}/type/{gags_type}", f"group {group_name}")
+        else (
+            f"{GROUP_GAGS_ENDPOINT % group_name}/type/{gags_type}",
+            f"group {group_name}",
+        )
     )
 
     # Fetch gags from the API
@@ -68,16 +77,4 @@ async def gags():
         return jsonify(gags_data)
 
 
-def open_browser():
-    """
-    Opens the default web browser at the home page URL.
-    """
-    webbrowser.open_new("http://127.0.0.1:5000")
-
-
-def run():
-    """
-    Main entrypoint, opens the browser and starts the application on port 5000.
-    """
-    Timer(0, open_browser).start()
-    app.run(port=5000)
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #

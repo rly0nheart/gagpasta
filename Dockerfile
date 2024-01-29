@@ -8,4 +8,4 @@ RUN pip install --upgrade pip && pip install .
 
 EXPOSE 5000
 
-ENTRYPOINT ["gagpasta"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "gagpasta:run()"]
