@@ -22,7 +22,7 @@
     </a>
     <br>
     <br>
-    Gag Pasta is a free open-source tool for searching 9Gag posts that from a user-specified tag or group.
+    Gag Pasta is a free open-source tool for searching 9Gag posts from a user-specified tag or group.
 </p>
 
 
