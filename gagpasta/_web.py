@@ -8,7 +8,7 @@ from flask import (
     render_template,
 )
 
-from .api import get_gags, GROUP_GAGS_ENDPOINT, TAGGED_GAGS_ENDPOINT
+from ._api import get_gags, GROUP_GAGS_ENDPOINT, TAGGED_GAGS_ENDPOINT
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 

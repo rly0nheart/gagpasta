@@ -7,7 +7,7 @@ from conftest import (
     TEST_TAG,
     TEST_GROUP,
 )
-from gagpasta.api import get_gags, TAGGED_GAGS_ENDPOINT, GROUP_GAGS_ENDPOINT
+from gagpasta._api import get_gags, TAGGED_GAGS_ENDPOINT, GROUP_GAGS_ENDPOINT
 
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
