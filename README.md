@@ -8,16 +8,16 @@
     <a href="#">
         <img src="https://img.shields.io/badge/Flask-000?logo=flask&logoColor=fff&style=flat">
     </a>
-    <a href="#">
+    <a href="https://github.com/search?q=repo%3Arly0nheart%2Fgagpasta++language%3AJavascript&type=code">
         <img src="https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=000&style=flat">
     </a>
-    <a href="#">
+    <a href="https://github.com/search?q=repo%3Arly0nheart%2Fgagpasta++language%3ACSS&type=code">
         <img src="https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=fff&style=flat">
     </a>
-    <a href="#">
+    <a href="https://github.com/search?q=repo%3Arly0nheart%2Fgagpasta++language%3APython&type=code">
         <img src="https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=fff&style=flat">
     </a>
-    <a href="#">
+    <a href="https://github.com/search?q=repo%3Arly0nheart%2Fgagpasta++language%3AHTML&type=code">
         <img src="https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=fff&style=flat">
     </a>
     <br>
