@@ -43,6 +43,13 @@
         text-align: center;
     }
 
+    #mastodon-verification {
+      font-size: 0;
+      color: hidden;
+      text-decoration: none;
+      overflow: hidden;
+    }
+
     .gag {
             font-family: 'Bebas Neue', sans-serif;
             position: relative;
