@@ -99,19 +99,19 @@ async def get_gags(
     session: aiohttp.ClientSession,
     limit: int,
     media_type: Literal["animated", "photo", "article"] = None,
-) -> dict:
+) -> list:
     # Fetch the original response
     response = await get_data(endpoint, session)
 
     # Paginate gags and update the 'posts' key in the original response
-    response.get("data")["posts"] = await paginate(
+    response["data"]["posts"] = await paginate(
         initial_endpoint=endpoint,
         media_type=media_type,
         limit=limit,
         session=session,
     )
 
-    return response.get("data")
+    return response.get("data").get("posts")
 
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #

@@ -83,7 +83,7 @@
     </div>
 
     <div id="groupInput" style="display:none;">
-        <label for="groupName">Select Group Name:</label>
+        <label for="groupName">Group Name:</label>
         <select id="groupName" name="group-name">
             <option value="wtf">WTF</option>
             <option value="funny">Funny</option>
@@ -92,14 +92,23 @@
             <!-- <option value="gaming">Gaming</option> -->
             <option value="comic">Comic</option>
             <option value="wholesome">Wholesome</option>
-            <!-- <option value="anime">Anime</option> -->
+            <!-- <option value="anime">Anime & Manga</option> -->
             <option value="animals">Animals</option>
             <!-- <option value="relationship">Relationship</option> -->
             <option value="science">Science</option>
             <!-- <option value="food">Food</option> -->
             <option value="superhero">Superhero</option>
+        </select>
+    </div>
 
-
+    <div>
+        <label for="gagsType">Gags' Listing Type
+            :</label>
+        <select id="gagsType" name="gags-type">
+            <option value="home">Home</option>
+            <option value="top">Top</option>
+            <option value="trending">Trending</option>
+            <option value="fresh">Fresh</option>
         </select>
     </div>
     <div>
@@ -113,19 +122,8 @@
     </div>
 
     <div>
-        <label for="gagsType">Gags Type:</label>
-        <select id="gagsType" name="gags-type">
-            <option value="home">Home</option>
-            <option value="top">Top</option>
-            <option value="trending">Trending</option>
-            <option value="fresh">Fresh</option>
-        </select>
-    </div>
-
-    <div>
-        <label for="gagsLimit">Limit:</label>
-        <input type="number" id="gagsLimit" name="limit" itemtype="number" value=10 min=10
-               onkeydown="return false;">
+        <label for="gagsLimit">Set Result's Limit:</label>
+        <input type="number" id="gagsLimit" name="limit" itemtype="number" value=10 min=10 max=100 required>
     </div>
 
     <button type="submit">
@@ -147,7 +145,7 @@
         data-id="rly0nheart" data-description="Support me on Buy me a coffee!"
         data-message="Each coffee you buy directly helps with the domain and hosting costs, ensuring that I can keep the site up and running.
         Thank you for being an amazing supporter! ❤️"
-        data-color="#5F7FFF"
+        data-color="#007bff"
         data-position="Left" data-x_margin="18" data-y_margin="18">
 </script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>

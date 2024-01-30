@@ -1,11 +1,12 @@
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+import time
 
 import aiohttp
 from flask import (
     Flask,
     request,
-    jsonify,
     render_template,
+    jsonify,
 )
 
 from ._api import get_gags, GROUP_GAGS_ENDPOINT, TAGGED_GAGS_ENDPOINT
@@ -30,7 +31,7 @@ def index():
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 
-@app.route("/api/gags", methods=["GET"])
+@app.route("/gags", methods=["GET"])
 async def gags():
     """
     Fetch and return a list of gags based on the specified parameters.
@@ -67,14 +68,18 @@ async def gags():
 
     # Fetch gags from the API
     async with aiohttp.ClientSession() as session:
-        gags_data: dict = await get_gags(
+        gags_data: list = await get_gags(
             endpoint=gags_endpoint[0],
             media_type=media_type,
             limit=gags_limit,
             session=session,
         )
 
-        return jsonify(gags_data)
+        response: dict = {
+            "timestamp": time.time(),
+            "gags": gags_data,
+        }
+        return jsonify(response)
 
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #

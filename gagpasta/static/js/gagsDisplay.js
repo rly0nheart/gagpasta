@@ -6,23 +6,24 @@ $(document).ready(function() {
         event.preventDefault();
         $("#loading").fadeIn('fast');
         $.ajax({
-            url: '/api/gags',
+            url: '/gags',
             type: 'GET',
             data: $(this).serialize(),
             success: function(response) {
                 // Gags were found, display them
-                if (response && response.posts && response.posts.length > 0) {
+                if (response.gags && response.gags.length > 0) {
                     $("#loading").fadeOut('fast');
                     $("#headerImage").fadeOut('slow');
                     $('#homeButton').fadeIn('slow');
 
                     $("#gagsForm").fadeOut('slow', function() {
-                        $("#results").html(formatGags(response.posts)).fadeIn('slow');
+                        $("#results").html(formatGags(response.gags)).fadeIn('slow');
                     });
                 } else { // No gags were found, display the no-results message
                     $("#loading").fadeOut('fast');
                     $("#headerImage").fadeOut('slow');
                     $('#gagsForm').fadeOut('slow');
+                    $('#timestamp').fadeIn('slow');
                     $('#homeButton').fadeIn('slow');
 
                     $("#results").html(formatNoGagsMessage()).fadeIn('slow');
@@ -39,64 +40,64 @@ $(document).ready(function() {
         `;
     }
 
-    function formatGags(posts) {
-        return posts.map((post, index) => `
+    function formatGags(gags) {
+        return gags.map((gag, index) => `
             <div class="gag">
             <div class="author-info">
                 <div class="author-image">
-                    <a href="${post.creator.avatarUrl}" target="_blank">
-                        <img src="${post.creator.avatarUrl}" alt="Author profile picture">
+                    <a href="${gag.creator.avatarUrl}" target="_blank">
+                        <img src="${gag.creator.avatarUrl}" alt="Author profile picture">
                     </a>
                 </div>
                 <div class="author-name">
-                    <a href="${post.creator.profileUrl}" target="_blank">
-                        ${post.creator.fullName}
+                    <a href="${gag.creator.profileUrl}" target="_blank">
+                        ${gag.creator.fullName}
                     </a>
-                    <span class="username">@${post.creator.username} • ${timeSince(post.creationTs)}</span>
+                    <span class="username">@${gag.creator.username} • ${timeSince(gag.creationTs)}</span>
                 </div>
             </div>
             <div class="gag-content">
                 <div class="tags">
-                    ${post.tags.map(tag => `<span class="tag">${tag.key}</span>`).join('')}
+                    ${gag.tags.map(tag => `<span class="tag">${tag.key}</span>`).join('')}
                 </div>
                 <h3>
-                    <a href="${post.url}" target="_blank">${post.title}</a>
+                    <a href="${gag.url}" target="_blank">${gag.title}</a>
                 </h3>
-                ${post.type === 'Article' ? formatArticle(post) : ''}
-                ${formatMedia(post)}
+                ${gag.type === 'Article' ? formatArticle(gag) : ''}
+                ${formatMedia(gag)}
             </div>
             <div class="gag-stats">
-                <span class="gag-index"><i class="fas fa-arrow-down-wide-short"></i> ${index + 1}/${posts.length}</span>
-                <span class="upvotes-count"><i class="fas fa-thumbs-up"></i> ${post.upVoteCount}</span>
-                <span class="downvotes-count"><i class="fas fa-thumbs-down"></i> ${post.downVoteCount}</span>
-                <span class="awards-count"><i class="fas fa-award"></i> ${post.awardUsersCount}</span>
-                <span class="comments-count"><i class="fas fa-comments"></i> ${post.commentsCount}</span>
+                <span class="gag-index"><i class="fas fa-arrow-down-wide-short"></i> ${index + 1}/${gags.length}</span>
+                <span class="upvotes-count"><i class="fas fa-thumbs-up"></i> ${gag.upVoteCount}</span>
+                <span class="downvotes-count"><i class="fas fa-thumbs-down"></i> ${gag.downVoteCount}</span>
+                <span class="awards-count"><i class="fas fa-award"></i> ${gag.awardUsersCount}</span>
+                <span class="comments-count"><i class="fas fa-comments"></i> ${gag.commentsCount}</span>
                 <div class="stats-spacer"></div> <!-- Spacer to push download icon to the right -->
-                <span class="download-gag" data-gag='${encodeURIComponent(JSON.stringify(post))}' data-title='${post.title}' title="Download Gag Data">
-                    <i class="fas fa-download"></i>
+                <span class="download-gag" data-gag='${encodeURIComponent(JSON.stringify(gag))}' data-title='${gag.title}' title="Download Gag Data">
+                    <i class="fas fa-file-download"></i>
                 </span>
             </div>
         </div>
         `).join('');
     }
 
-    function formatArticle(post) {
-        let articleContent = post.article.blocks.map(block => block.type === 'RichText' ? `<p>${block.content}</p>` : '').join('');
-        return `${articleContent}<p>Source: <a href="${post.sourceUrl}" target="_blank">${post.sourceUrl}</a></p>`;
+    function formatArticle(gag) {
+        let articleContent = gag.article.blocks.map(block => block.type === 'RichText' ? `<p>${block.content}</p>` : '').join('');
+        return `${articleContent}<p>Source: <a href="${gag.sourceUrl}" target="_blank">${gag.sourceUrl}</a></p>`;
     }
 
-    function formatMedia(post) {
-        if (post.type === 'Animated' && 'image460sv' in post.images) {
+    function formatMedia(gag) {
+        if (gag.type === 'Animated' && 'image460sv' in gag.images) {
             return `
-                <a href="${post.images.image460sv.url}" target="_blank">
+                <a href="${gag.images.image460sv.url}" target="_blank">
                     <video width="100%" class="hover-video" controls>
-                        <source src="${post.images.image460sv.url}" type="video/mp4">
+                        <source src="${gag.images.image460sv.url}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </a>`;
-        } else if ('image700' in post.images) {
-            return `<a href="${post.images.image700.url}" target="_blank">
-                        <img src="${post.images.image700.url}" alt="Image" style="max-width:100%;height:auto;">
+        } else if ('image700' in gag.images) {
+            return `<a href="${gag.images.image700.url}" target="_blank">
+                        <img src="${gag.images.image700.url}" alt="Image" style="max-width:100%;height:auto;">
                     </a>`;
         } else {
             return `<p>No media available.</p>`;

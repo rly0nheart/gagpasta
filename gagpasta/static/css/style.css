@@ -106,7 +106,6 @@
     .gag-index,
     .upvotes-count,
     .downvotes-count,
-    .download-gag,
     .comments-count,
     .awards-count {
         font-family: 'Bebas Neue', sans-serif;
@@ -114,6 +113,15 @@
         margin-top: 10px;
         padding: 5px 10px;
         font-size: 1em;
+        cursor: default;
+    }
+
+    .download-gag {
+        font-family: 'Bebas Neue', sans-serif;
+        display: inline-block;
+        margin-top: 10px;
+        padding: 5px 10px;
+        font-size: 1.1em;
         cursor: default;
     }
 
