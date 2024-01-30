@@ -5,7 +5,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry]
 name = "gagpasta"
 version = "1.2.0"
-description = "Find Freshly Served 9Gag Posts, Al Dente!👌🏾 "
+description = "Find Freshly Served 9Gag Posts, Al Dente!🍝"
 authors = ["Richard Mwewa <rly0nheart@duck.com>"]
 readme = "README.md"
 license = "GNU General Public License v3 (GPLv3)"
