@@ -9,15 +9,15 @@ $(document).ready(function() {
             url: '/gags',
             type: 'GET',
             data: $(this).serialize(),
-            success: function(response) {
+            success: function(gags) {
                 // Gags were found, display them
-                if (response.gags && response.gags.length > 0) {
+                if (gags && gags.length > 0) {
                     $("#loading").fadeOut('fast');
                     $("#headerImage").fadeOut('slow');
                     $('#homeButton').fadeIn('slow');
 
                     $("#gagsForm").fadeOut('slow', function() {
-                        $("#results").html(formatGags(response.gags)).fadeIn('slow');
+                        $("#results").html(formatGags(gags)).fadeIn('slow');
                     });
                 } else { // No gags were found, display the no-results message
                     $("#loading").fadeOut('fast');

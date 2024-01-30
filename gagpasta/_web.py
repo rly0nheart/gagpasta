@@ -1,5 +1,4 @@
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
-import time
 
 import aiohttp
 from flask import (
@@ -75,11 +74,7 @@ async def gags():
             session=session,
         )
 
-        response: dict = {
-            "timestamp": time.time(),
-            "gags": gags_data,
-        }
-        return jsonify(response)
+        return jsonify(gags_data)
 
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
