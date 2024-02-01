@@ -50,14 +50,10 @@ $(document).ready(function() {
     }
 
     function formatGags(gags) {
-    // Filter out items with null or undefined gag.creator
-    const filteredGags = gags.filter(gag => gag.creator);
-
     // Map over the filtered array
-    return filteredGags.map((gag, index) => {
-        // Rest of the formatting code remains the same
+    return gags.map((gag, index) => {
         const creator = gag.creator;
-        const creationTs = gag.creationTs; // Added missing creationTs variable
+        const creationTs = gag.creationTs;
         return `
             <div class="gag">
                 <div class="author-info">
