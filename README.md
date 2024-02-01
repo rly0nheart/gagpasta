@@ -23,14 +23,6 @@
     <br>
     <br>
     Gag Pasta is a free open-source tool for searching 9Gag posts from a user-specified tag or group.
-    <br>
-    <br>
-    <br>
-    <br>
-    <strong>Note</strong>: Attempting to get posts from tags <i>anime</i> and <i>manga</i>, or groups <i>music</i>, <i>anime</i>, <i>gaming</i> <i>food</i> and <i>relationship</i>, will not show results, even though the API returns valid results. If you can fix this, please feel free to fork this repository, make changes and open a pull request. I'll be more than happy to merge.
-    <br>
-    <br>
-    <strong>PS</strong>: Once you install the project locally, use <i>gunicorn --bind 0.0.0.0:5000 "gagpasta:app" to run it.</i>
 </p>
 
 

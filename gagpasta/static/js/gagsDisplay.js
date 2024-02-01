@@ -9,76 +9,95 @@ $(document).ready(function() {
             url: '/gags',
             type: 'GET',
             data: $(this).serialize(),
-            success: function(gags) {
-                // Gags were found, display them
-                if (gags && gags.length > 0) {
-                    $("#loading").fadeOut('fast');
-                    $("#headerImage").fadeOut('slow');
-                    $('#homeButton').fadeIn('slow');
-
-                    $("#gagsForm").fadeOut('slow', function() {
-                        $("#results").html(formatGags(gags)).fadeIn('slow');
-                    });
-                } else { // No gags were found, display the no-results message
+            success: function(response) {
+                if (response.status === 429 && response.message) {
                     $("#loading").fadeOut('fast');
                     $("#headerImage").fadeOut('slow');
                     $('#gagsForm').fadeOut('slow');
                     $('#timestamp').fadeIn('slow');
                     $('#homeButton').fadeIn('slow');
 
-                    $("#results").html(formatNoGagsMessage()).fadeIn('slow');
+                    $("#results").html(formatMessage(response.message)).fadeIn('slow');
+
+                // Gags were found, display them
+                } else if (response.status === 200 && response.gags && response.gags.length > 0) {
+                    $("#loading").fadeOut('fast');
+                    $("#headerImage").fadeOut('slow');
+                    $('#homeButton').fadeIn('slow');
+
+                    $("#gagsForm").fadeOut('slow', function() {
+                        $("#results").html(formatGags(response.gags)).fadeIn('slow');
+                    });
+                } else if (response.status === 200 && response.gags.length === 0) { // No gags were found, display the no-results message
+                    $("#loading").fadeOut('fast');
+                    $("#headerImage").fadeOut('slow');
+                    $('#gagsForm').fadeOut('slow');
+                    $('#timestamp').fadeIn('slow');
+                    $('#homeButton').fadeIn('slow');
+
+                    $("#results").html(formatMessage("No gags were found. Please adjust your search criteria and try again.")).fadeIn('slow');
                 }
-            }
+            },
         });
     });
 
-    function formatNoGagsMessage() {
+    function formatMessage(message) {
         return `
-            <div class="no-gags-message">
-                <span>No gags were found. Please adjust your search criteria and try again.</span>
+            <div class="status-message">
+                <span>${message}</span>
             </div>
         `;
     }
 
     function formatGags(gags) {
-        return gags.map((gag, index) => `
+    // Filter out items with null or undefined gag.creator
+    const filteredGags = gags.filter(gag => gag.creator);
+
+    // Map over the filtered array
+    return filteredGags.map((gag, index) => {
+        // Rest of the formatting code remains the same
+        const creator = gag.creator;
+        const creationTs = gag.creationTs; // Added missing creationTs variable
+        return `
             <div class="gag">
-            <div class="author-info">
-                <div class="author-image">
-                    <a href="${gag.creator.avatarUrl}" target="_blank">
-                        <img src="${gag.creator.avatarUrl}" alt="Author profile picture">
-                    </a>
+                <div class="author-info">
+                    <div class="author-image">
+                        <a href="${creator.avatarUrl}" target="_blank">
+                            <img src="${creator.avatarUrl}" alt="Author profile picture">
+                        </a>
+                    </div>
+                    <div class="author-name">
+                        <a href="${creator.profileUrl}" target="_blank">
+                            ${creator.fullName}
+                        </a>
+                        <span class="username">@${creator.username} • ${timeSince(creationTs)}</span>
+                    </div>
                 </div>
-                <div class="author-name">
-                    <a href="${gag.creator.profileUrl}" target="_blank">
-                        ${gag.creator.fullName}
-                    </a>
-                    <span class="username">@${gag.creator.username} • ${timeSince(gag.creationTs)}</span>
+
+                <div class="gag-content">
+                    <div class="tags">
+                        ${gag.tags.map(tag => `<span class="tag">${tag.key}</span>`).join('')}
+                    </div>
+                    <h3>
+                        <a href="${gag.url}" target="_blank">${gag.title}</a>
+                    </h3>
+                    ${gag.type === 'Article' ? formatArticle(gag) : ''}
+                    ${formatMedia(gag)}
                 </div>
-            </div>
-            <div class="gag-content">
-                <div class="tags">
-                    ${gag.tags.map(tag => `<span class="tag">${tag.key}</span>`).join('')}
+
+                <div class="gag-stats">
+                    <span class="gag-index"><i class="fas fa-arrow-down-wide-short"></i> ${index + 1}/${filteredGags.length}</span>
+                    <span class="upvotes-count"><i class="fas fa-thumbs-up"></i> ${gag.upVoteCount}</span>
+                    <span class="downvotes-count"><i class="fas fa-thumbs-down"></i> ${gag.downVoteCount}</span>
+                    <span class="awards-count"><i class="fas fa-award"></i> ${gag.awardUsersCount}</span>
+                    <span class="comments-count"><i class="fas fa-comments"></i> ${gag.commentsCount}</span>
+                    <div class="stats-spacer"></div> <!-- Spacer to push download icon to the right -->
+                    <span class="download-gag" data-gag='${encodeURIComponent(JSON.stringify(gag))}' data-title='${gag.title}' title="Download Gag Data">
+                        <i class="fas fa-file-download"></i>
+                    </span>
                 </div>
-                <h3>
-                    <a href="${gag.url}" target="_blank">${gag.title}</a>
-                </h3>
-                ${gag.type === 'Article' ? formatArticle(gag) : ''}
-                ${formatMedia(gag)}
-            </div>
-            <div class="gag-stats">
-                <span class="gag-index"><i class="fas fa-arrow-down-wide-short"></i> ${index + 1}/${gags.length}</span>
-                <span class="upvotes-count"><i class="fas fa-thumbs-up"></i> ${gag.upVoteCount}</span>
-                <span class="downvotes-count"><i class="fas fa-thumbs-down"></i> ${gag.downVoteCount}</span>
-                <span class="awards-count"><i class="fas fa-award"></i> ${gag.awardUsersCount}</span>
-                <span class="comments-count"><i class="fas fa-comments"></i> ${gag.commentsCount}</span>
-                <div class="stats-spacer"></div> <!-- Spacer to push download icon to the right -->
-                <span class="download-gag" data-gag='${encodeURIComponent(JSON.stringify(gag))}' data-title='${gag.title}' title="Download Gag Data">
-                    <i class="fas fa-file-download"></i>
-                </span>
-            </div>
-        </div>
-        `).join('');
+            </div>`;
+        }).join('');
     }
 
     function formatArticle(gag) {

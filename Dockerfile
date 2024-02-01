@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM python:latest
 
 WORKDIR /app
 
@@ -8,4 +8,4 @@ RUN pip install --upgrade pip && pip install .
 
 EXPOSE 5000
 
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "gagpasta:run()"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "gagpasta:app"]

@@ -19,6 +19,7 @@
     input[type='text'],
     input[type='number'],
     button,
+    .no-gags-message, .rate-limit-message,
     .gag-content img,
     .author-image img,
     .author-info,
@@ -303,10 +304,11 @@
 
 
     /* Style for the no-gags-message */
-    .no-gags-message {
+    .no-gags-message, rate-limit-message {
         margin: 20px auto;
         padding: 20px;
         text-align: center;
+        border-radius: 10px;
         font-size: 1.1em;
     }
 

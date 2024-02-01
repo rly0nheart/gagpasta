@@ -1,4 +1,5 @@
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+from datetime import datetime
 
 import aiohttp
 from flask import (
@@ -7,12 +8,20 @@ from flask import (
     render_template,
     jsonify,
 )
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 from ._api import get_gags, GROUP_GAGS_ENDPOINT, TAGGED_GAGS_ENDPOINT
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 app = Flask(__name__)
+limiter = Limiter(
+    app=app,
+    key_func=get_remote_address,
+    default_limits=["5000 per hour", "80 per minute"],
+    storage_uri="redis://localhost:6379",
+)
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
@@ -28,6 +37,13 @@ def index():
 
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
+
+
+@app.errorhandler(429)
+def ratelimit_handler(message):
+    return jsonify(
+        {"timestamp": datetime.now(), "status": 429, "message": str(message)}
+    )
 
 
 @app.route("/gags", methods=["GET"])
@@ -74,7 +90,14 @@ async def gags():
             session=session,
         )
 
-        return jsonify(gags_data)
+        response: dict = {
+            "status": 200,
+            "timestamp": datetime.now(),
+            "type": gags_type,
+            "media": media_type,
+            "gags": gags_data,
+        }
+        return jsonify(response)
 
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #

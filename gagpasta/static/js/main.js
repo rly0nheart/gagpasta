@@ -55,6 +55,7 @@ function goHome() {
         $("#headerImage").fadeIn('slow');
         $("#gagsForm").fadeIn('slow');
         $("#backButton").fadeOut('slow');
+        $("#timestamp").fadeOut('slow');
         $("#homeButton").fadeOut('slow');
     });
 
