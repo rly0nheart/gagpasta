@@ -50,8 +50,11 @@ $(document).ready(function() {
     }
 
     function formatGags(gags) {
+    // Filter out items with null or undefined gag.creator
+    const filteredGags = gags.filter(gag => gag.creator);
+
     // Map over the filtered array
-    return gags.map((gag, index) => {
+    return filteredGags.map((gag, index) => {
         const creator = gag.creator;
         const creationTs = gag.creationTs;
         return `
