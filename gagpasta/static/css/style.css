@@ -1,4 +1,5 @@
 <style>
+    /* Font Setup */
     @font-face {
         font-family: 'Bebas Neue';
         src: url('/static/fonts/BebasNeue-Regular.ttf') format('truetype');
@@ -7,6 +8,7 @@
     }
 
     /* Global Transition Style */
+    /* Defines a smooth transition effect for various elements */
     body,
     h1,
     .gag,
@@ -14,6 +16,7 @@
     .top-nav ul li a,
     form,
     .download-gag,
+    .media-grid,
     label,
     select,
     input[type='text'],
@@ -29,9 +32,11 @@
     .top-nav,
     .bottom-nav,
     footer {
-        transition: background-color 0.3s, color 0.3s, box-shadow 0.3s, border-color 0.3s; /* Smooth transition for theme change */
+        transition: background-color 0.3s, color 0.3s, box-shadow 0.3s, border-color 0.3s;
     }
 
+    /* Body Style */
+    /* Sets the default style for the body of the page */
     body {
         display: none;
         padding-top: 50px;
@@ -39,11 +44,15 @@
         font-family: 'Bebas Neue', sans-serif;
     }
 
+    /* Header Style */
+    /* Styles for the main header (h1) element */
     h1 {
         font-family: 'Bebas Neue', sans-serif;
         text-align: center;
     }
 
+    /* Mastodon Verification Style */
+    /* Hides the Mastodon verification element */
     #mastodon-verification {
       font-size: 0;
       color: hidden;
@@ -51,18 +60,22 @@
       overflow: hidden;
     }
 
+    /* Gag Card Style */
+    /* Styles for individual gag cards */
     .gag {
-            font-family: 'Bebas Neue', sans-serif;
-            position: relative;
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            border-radius: 10px;
-            display: flex;
-            flex-direction: column;
-            text-align: center;
-        }
+        font-family: 'Bebas Neue', sans-serif;
+        position: relative;
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
 
+    /* Media Container Style */
+    /* Styles for the container holding media content */
     .media-container {
         display: flex;
         flex-direction: row;
@@ -70,17 +83,23 @@
         justify-content: space-between;
     }
 
+    /* Gag Content Style */
+    /* Styles for the textual content of gags */
     .gag-content {
         text-align: left;
         flex: 1;
     }
 
+    /* Gag Image Style */
+    /* Styles for images inside gags */
     .gag-content img {
         max-width: 100%;
         height: auto;
         border-radius: 10px;
     }
 
+    /* Gag Stats Style */
+    /* Styles for the stats section of gags (upvotes, comments, etc.) */
     .gag-stats {
         display: flex;
         flex-direction: row;
@@ -88,14 +107,16 @@
         justify-content: start;
         flex-wrap: wrap;
         background-color: transparent;
-
     }
 
+    /* Spacer for Gag Stats */
+    /* Provides spacing within the gag stats section */
     .stats-spacer {
-        flex-grow: 1; /* push the download icon to the right */
+        flex-grow: 1;
     }
 
-
+    /* Author Image Style */
+    /* Styles for the author's image */
     .author-image img {
         max-width: 80px;
         max-height: 80px;
@@ -104,6 +125,8 @@
         object-fit: cover;
     }
 
+    /* Gag Info Style */
+    /* Styles for various pieces of information about the gag (index, votes, etc.) */
     .gag-index,
     .upvotes-count,
     .downvotes-count,
@@ -117,6 +140,8 @@
         cursor: default;
     }
 
+    /* Download Button Style */
+    /* Styles for the download button on gags */
     .download-gag {
         font-family: 'Bebas Neue', sans-serif;
         display: inline-block;
@@ -126,16 +151,8 @@
         cursor: default;
     }
 
-    .upvotes-count,
-    .downvotes-count,
-    .download-gag,
-    .gag-index,
-    .comments-count,
-    .awards-count {
-        background-color: transparent;
-        color: inherit;
-    }
-
+    /* Author and Gag Info Style */
+    /* Styles for the author and various gag info elements */
     .author-info {
         display: flex;
         align-items: center;
@@ -146,22 +163,21 @@
         flex-direction: column;
         align-items: flex-start;
     }
-
     .author-name a, .gag-content h3 a {
         color: inherit;
         text-decoration: none;
     }
-
     .author-name a:hover, .gag-content h3 a:hover {
         text-decoration: underline;
     }
-
     .username {
         font-family: 'Bebas Neue', sans-serif;
         font-size: 0.9em;
         margin-top: 4px;
     }
 
+    /* Tag Style */
+    /* Styles for tags associated with gags */
     .tags {
         display: flex;
         flex-wrap: wrap;
@@ -169,7 +185,6 @@
         margin-bottom: 10px;
         justify-content: flex-start;
     }
-
     .tag {
         display: inline-block;
         padding: 5px 10px;
@@ -182,58 +197,54 @@
         margin: 2px;
     }
 
+    /* Gag Content Text Style */
+    /* Styles for the text inside gag content */
     .gag-content {
         text-align: left;
     }
 
-    /* Style for the top-nav */
+    /* Top Navigation Bar Style */
+    /* Styles for the top navigation bar */
     .top-nav {
-        top: 0; /* Stick to the top of the page */
-        right: 0; /* Align to the right */
-        left: 0; /* Stretch from left to right */
+        top: 0;
+        right: 0;
+        left: 0;
         position: fixed;
         z-index: 1000;
         padding: 10px;
-        /* border-radius: 50px; */
         text-align: center;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional shadow for depth */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         display: flex;
-        justify-content: center; /* Center children horizontally */
-        align-items: center; /* Center children vertically */
-        flex-wrap: wrap; /* Wrap items to next line */
-
-
-        margin: 0 auto; /* Center the nav bar in the viewport */
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        margin: 0 auto;
     }
-
     .top-nav li {
         cursor: pointer;
     }
-
     .top-nav ul {
         list-style-type: none;
         margin: 0;
         padding: 0;
     }
-
     .top-nav ul li {
         display: inline-block;
         margin-right: 20px;
     }
-
     .top-nav ul li a {
         text-decoration: none;
         font-weight: bold;
         display: inline-flex;
         align-items: center;
     }
-
     .top-nav ul li a i {
         margin-right: 5px;
         font-size: 1.2em;
     }
 
-    /* Other styles */
+    /* Form Style */
+    /* Styles for forms used on the page */
     form {
         display: inline-block;
         margin-top: 20px;
@@ -241,13 +252,11 @@
         border-radius: 8px;
         font-family: 'Bebas Neue', sans-serif;
     }
-
     label {
         display: block;
         margin-bottom: 5px;
         font-weight: bold;
     }
-
     select, input[type='text'], input[type='number'] {
         width: 100%;
         padding: 8px;
@@ -257,29 +266,25 @@
         box-sizing: border-box;
         font-family: 'Bebas Neue', sans-serif;
     }
-
     input:required:invalid {
         border: 2px solid #ff6b81;
     }
-
     button {
-            font-size: 16px;
-            color: inherit;
-            background: none;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 50px;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
+        font-size: 16px;
+        color: inherit;
+        background: none;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 50px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
     }
 
-    .form-group {
-        margin-bottom: 15px;
-    }
-
+    /* Footer Style */
+    /* Styles for the page footer */
     footer {
         text-align: center;
         margin-top: 40px;
@@ -287,36 +292,66 @@
         font-family: 'Bebas Neue', sans-serif;
     }
 
+    /* Hover Effect for Download Button */
+    /* Adds hover effect to the download button */
     .download-gag:hover {
-        color: #007bff; /* Change color on hover */
+        color: #007bff;
     }
 
-    /* Day/Night style for the body */
+    /* Dark/Light Mode Body Styles */
+    /* Defines styles for dark and light modes */
     body.dark-mode {
         background-color: #181a21;
         color: #dcdcdc;
-        }
-
+    }
     body.light-mode {
         background-color: #f2f2f2;
         color: #333;
     }
 
-
-    /* Style for the no-gags-message */
-    .no-gags-message, rate-limit-message {
+    /* No Gags/Rate Limit Message Style */
+    /* Styles for displaying messages when no gags are found or rate limit is exceeded */
+    .no-gags-message, .rate-limit-message {
         margin: 20px auto;
         padding: 20px;
         text-align: center;
         border-radius: 10px;
         font-size: 1.1em;
     }
-
-    .no-gags-message span {
+    .no-gags-message span, .rate-limit-message span {
         color: inherit;
     }
 
+    /* Media Grid Style */
+    /* Styles for the grid layout of media items */
+    .media-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-content: flex-start;
+    }
 
+    /* Media Item Style */
+    /* Styles for individual media items in the grid */
+    .media-item {
+        flex: 1 1 200px;
+        max-width: 100%;
+        border-radius: 10px;
+        overflow: hidden;
+    }
 
+    /* Media Item Image Style */
+    /* Styles for images within media items */
+    .media-item img {
+        width: 100%;
+        height: auto;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
 
+    /* Hover Effect for Media Items */
+    /* Adds a 'pop' effect to media items on hover */
+    .media-item:hover img {
+        transform: scale(1.05);
+    }
 </style>

@@ -50,52 +50,52 @@ $(document).ready(function() {
     }
 
     function formatGags(gags) {
-    // Filter out items with null or undefined gag.creator
-    const filteredGags = gags.filter(gag => gag.creator);
+        // Filter out items with null or undefined gag.creator
+        const filteredGags = gags.filter(gag => gag.creator);
 
-    // Map over the filtered array
-    return filteredGags.map((gag, index) => {
-        const creator = gag.creator;
-        const creationTs = gag.creationTs;
-        return `
-            <div class="gag">
-                <div class="author-info">
-                    <div class="author-image">
-                        <a href="${creator.avatarUrl}" target="_blank">
-                            <img src="${creator.avatarUrl}" alt="Author profile picture">
-                        </a>
+        // Map over the filtered array
+        return filteredGags.map((gag, index) => {
+            const creator = gag.creator;
+            const creationTs = gag.creationTs;
+            return `
+                <div class="gag">
+                    <div class="author-info">
+                        <div class="author-image">
+                            <a href="${creator.avatarUrl}" target="_blank">
+                                <img src="${creator.avatarUrl}" alt="Author profile picture">
+                            </a>
+                        </div>
+                        <div class="author-name">
+                            <a href="${creator.profileUrl}" target="_blank">
+                                ${creator.fullName}
+                            </a>
+                            <span class="username">@${creator.username} • ${timeSince(creationTs)}</span>
+                        </div>
                     </div>
-                    <div class="author-name">
-                        <a href="${creator.profileUrl}" target="_blank">
-                            ${creator.fullName}
-                        </a>
-                        <span class="username">@${creator.username} • ${timeSince(creationTs)}</span>
-                    </div>
-                </div>
 
-                <div class="gag-content">
-                    <div class="tags">
-                        ${gag.tags.map(tag => `<span class="tag">${tag.key}</span>`).join('')}
+                    <div class="gag-content">
+                        <div class="tags">
+                            ${gag.tags.map(tag => `<span class="tag">${tag.key}</span>`).join('')}
+                        </div>
+                        <h3>
+                            <a href="${gag.url}" target="_blank">${gag.title}</a>
+                        </h3>
+                        ${gag.type === 'Article' ? formatArticle(gag) : ''}
+                        ${formatMedia(gag)}
                     </div>
-                    <h3>
-                        <a href="${gag.url}" target="_blank">${gag.title}</a>
-                    </h3>
-                    ${gag.type === 'Article' ? formatArticle(gag) : ''}
-                    ${formatMedia(gag)}
-                </div>
 
-                <div class="gag-stats">
-                    <span class="gag-index"><i class="fas fa-arrow-down-wide-short"></i> ${index + 1}/${filteredGags.length}</span>
-                    <span class="upvotes-count"><i class="fas fa-thumbs-up"></i> ${gag.upVoteCount}</span>
-                    <span class="downvotes-count"><i class="fas fa-thumbs-down"></i> ${gag.downVoteCount}</span>
-                    <span class="awards-count"><i class="fas fa-award"></i> ${gag.awardUsersCount}</span>
-                    <span class="comments-count"><i class="fas fa-comments"></i> ${gag.commentsCount}</span>
-                    <div class="stats-spacer"></div> <!-- Spacer to push download icon to the right -->
-                    <span class="download-gag" data-gag='${encodeURIComponent(JSON.stringify(gag))}' data-title='${gag.title}' title="Download Gag Data">
-                        <i class="fas fa-file-download"></i>
-                    </span>
-                </div>
-            </div>`;
+                    <div class="gag-stats">
+                        <span class="gag-index"><i class="fas fa-arrow-down-wide-short"></i> ${index + 1}/${filteredGags.length}</span>
+                        <span class="upvotes-count"><i class="fas fa-thumbs-up"></i> ${gag.upVoteCount}</span>
+                        <span class="downvotes-count"><i class="fas fa-thumbs-down"></i> ${gag.downVoteCount}</span>
+                        <span class="awards-count"><i class="fas fa-award"></i> ${gag.awardUsersCount}</span>
+                        <span class="comments-count"><i class="fas fa-comments"></i> ${gag.commentsCount}</span>
+                        <div class="stats-spacer"></div> <!-- Spacer to push download icon to the right -->
+                        <span class="download-gag" data-gag='${encodeURIComponent(JSON.stringify(gag))}' data-title='${gag.title}' title="Download Gag Data">
+                            <i class="fas fa-file-download"></i>
+                        </span>
+                    </div>
+                </div>`;
         }).join('');
     }
 
@@ -105,10 +105,33 @@ $(document).ready(function() {
     }
 
     function formatMedia(gag) {
+        // Check for multiple media items
+        if (gag.article && gag.article.medias) {
+            let mediaHtml = '<div class="media-grid">';
+
+            gag.article.blocks.forEach(block => {
+                if (block.type === 'Media') {
+                    const mediaItem = gag.article.medias[block.mediaId];
+                    if (mediaItem && mediaItem.type === 'Photo') {
+                        mediaHtml += `
+                            <div class="media-item">
+                                <a href="${mediaItem.images.image700.url}" target="_blank">
+                                    <img src="${mediaItem.images.image700.url}" alt="Image">
+                                </a>
+                            </div>`;
+                    }
+                }
+            });
+
+            mediaHtml += '</div>';
+            return mediaHtml;
+        }
+
+        // Fallback for single media item
         if (gag.type === 'Animated' && 'image460sv' in gag.images) {
             return `
                 <a href="${gag.images.image460sv.url}" target="_blank">
-                    <video width="100%" class="hover-video" controls>
+                    <video width="100%" class="hover-video" controls style="border-radius: 10px; overflow: hidden;">
                         <source src="${gag.images.image460sv.url}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -121,6 +144,8 @@ $(document).ready(function() {
             return `<p>No media available.</p>`;
         }
     }
+
+
 
     $(document).on('click', '.download-gag', function() {
         const encodedData = $(this).data('gag');
