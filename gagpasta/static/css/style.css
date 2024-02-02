@@ -350,7 +350,6 @@
     }
 
     /* Hover Effect for Media Items */
-    /* Adds a 'pop' effect to media items on hover */
     .media-item:hover img {
         transform: scale(1.05);
     }
