@@ -1,8 +1,8 @@
 <style>
     /* Light Mode Styles */
     .light-mode {
-        background-color: #f2f2f2; /* soft off-white */
-        color: #333; /* dark gray for text, for better readability */
+        background-color: #f2f2f2;
+        color: #333;
     }
 
     .light-mode .username{
@@ -14,9 +14,9 @@
     }
 
     .light-mode .gag {
-        background-color: #ffffff; /* white */
+        background-color: #ffffff;
         color: #333;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* soft shadow for depth */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     .light-mode .gag:hover, .top-nav:hover {
@@ -32,7 +32,7 @@
     }
 
     .light-mode .top-nav ul li a:hover {
-        color: #0056b3; /* soft blue for links */
+        color: #0056b3;
     }
 
     .light-mode form {
@@ -55,21 +55,21 @@
     .light-mode select,
     .light-mode input[type='text'],
     .light-mode input[type='number'] {
-        background-color: #fafafa; /* very light gray */
-        border-color: #ccc; /* light gray border */
+        background-color: #fafafa;
+        border-color: #ccc; /
     }
 
     .light-mode button {
-        background-color: #007bff; /* soft blue */
+        background-color: #007bff;
         color: white;
     }
 
     .light-mode button:hover {
-        background-color: #0056b3; /* slightly darker blue on hover */
+        background-color: #0056b3;
         box-shadow: 0 4px 8px rgba(0, 192, 255, 0.3);
     }
 
     .light-mode footer {
-        color: #666; /* medium gray */
+        color: #666;
     }
 </style>
