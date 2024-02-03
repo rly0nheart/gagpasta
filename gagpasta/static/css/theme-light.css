@@ -72,4 +72,16 @@
     .light-mode footer {
         color: #666;
     }
+
+    .light-mode .menu-content {
+        background-color: #f2f2f2; /* Matching the form in light mode */
+    }
+
+    .light-mode .menu-content a:hover {
+        background-color: #e6e6e6; /* Visible hover background in light mode */
+    }
+
+
+
+
 </style>

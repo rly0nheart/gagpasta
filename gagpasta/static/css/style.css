@@ -353,4 +353,25 @@
     .media-item:hover img {
         transform: scale(1.05);
     }
+
+
+ /* Gag Menu Positioning - Now for the download icon */
+    .gag-download {
+        position: absolute;
+        top: 20px; /* Adjust to position the icon */
+        right: 23px; /* Adjust as needed */
+        font-size: 1.2em; /* Icon size, adjust as needed */
+        cursor: pointer;
+        z-index: 100;
+        transition: color 0.3s; /* Smooth transition for hover effect */
+    }
+
+    .gag-download i {
+        transition: color 0.3s; /* Smooth transition for color change */
+    }
+
+    .gag-download i:hover {
+        color: #007bff; /* Highlight color on hover */
+    }
+
 </style>

@@ -76,4 +76,19 @@
     .dark-mode footer {
         color: #a7b0c4;
     }
+
+
+    .dark-mode .menu-content {
+        background-color: #181a21; /* Matching the form in dark mode */
+    }
+
+    .dark-mode .menu-content a:hover {
+        background-color: #3d4461; /* Visible hover background in dark mode */
+    }
+
+
+
+
+
+
 </style>

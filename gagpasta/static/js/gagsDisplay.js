@@ -2,6 +2,7 @@ $(document).ready(function() {
     $("#top-nav").fadeIn('slow');
     $("#headerImage").fadeIn('slow');
     $("body").fadeIn('slow');
+
     $("#gagsForm").submit(function(event) {
         event.preventDefault();
         $("#loading").fadeIn('fast');
@@ -19,7 +20,6 @@ $(document).ready(function() {
 
                     $("#results").html(formatMessage(response.message)).fadeIn('slow');
 
-                // Gags were found, display them
                 } else if (response.status === 200 && response.gags && response.gags.length > 0) {
                     $("#loading").fadeOut('fast');
                     $("#headerImage").fadeOut('slow');
@@ -28,7 +28,7 @@ $(document).ready(function() {
                     $("#gagsForm").fadeOut('slow', function() {
                         $("#results").html(formatGags(response.gags)).fadeIn('slow');
                     });
-                } else if (response.status === 200 && response.gags.length === 0) { // No gags were found, display the no-results message
+                } else if (response.status === 200 && response.gags.length === 0) {
                     $("#loading").fadeOut('fast');
                     $("#headerImage").fadeOut('slow');
                     $('#gagsForm').fadeOut('slow');
@@ -50,26 +50,28 @@ $(document).ready(function() {
     }
 
     function formatGags(gags) {
-        // Filter out items with null or undefined gag.creator
         const filteredGags = gags.filter(gag => gag.creator);
-
-        // Map over the filtered array
         return filteredGags.map((gag, index) => {
             const creator = gag.creator;
             const creationTs = gag.creationTs;
             return `
                 <div class="gag">
-                    <div class="author-info">
-                        <div class="author-image">
-                            <a href="${creator.avatarUrl}" target="_blank">
-                                <img src="${creator.avatarUrl}" alt="Author profile picture">
-                            </a>
+                    <div class="gag-header">
+                        <div class="gag-download">
+                            <i class="fas fa-file-download download-gag-json" data-gag='${encodeURIComponent(JSON.stringify(gag))}' data-title='${gag.title}'></i>
                         </div>
-                        <div class="author-name">
-                            <a href="${creator.profileUrl}" target="_blank">
-                                ${creator.fullName}
-                            </a>
-                            <span class="username">@${creator.username} • ${timeSince(creationTs)}</span>
+                        <div class="author-info">
+                            <div class="author-image">
+                                <a href="${creator.avatarUrl}" target="_blank">
+                                    <img src="${creator.avatarUrl}" alt="Author profile picture">
+                                </a>
+                            </div>
+                            <div class="author-name">
+                                <a href="${creator.profileUrl}" target="_blank">
+                                    ${creator.fullName}
+                                </a>
+                                <span class="username">@${creator.username} • ${timeSince(creationTs)}</span>
+                            </div>
                         </div>
                     </div>
 
@@ -90,10 +92,6 @@ $(document).ready(function() {
                         <span class="downvotes-count"><i class="fas fa-thumbs-down"></i> ${gag.downVoteCount}</span>
                         <span class="awards-count"><i class="fas fa-award"></i> ${gag.awardUsersCount}</span>
                         <span class="comments-count"><i class="fas fa-comments"></i> ${gag.commentsCount}</span>
-                        <div class="stats-spacer"></div> <!-- Spacer to push download icon to the right -->
-                        <span class="download-gag" data-gag='${encodeURIComponent(JSON.stringify(gag))}' data-title='${gag.title}' title="Download Gag Data">
-                            <i class="fas fa-file-download"></i>
-                        </span>
                     </div>
                 </div>`;
         }).join('');
@@ -105,10 +103,8 @@ $(document).ready(function() {
     }
 
     function formatMedia(gag) {
-        // Check for multiple media items
         if (gag.article && gag.article.medias) {
             let mediaHtml = '<div class="media-grid">';
-
             gag.article.blocks.forEach(block => {
                 if (block.type === 'Media') {
                     const mediaItem = gag.article.medias[block.mediaId];
@@ -122,12 +118,9 @@ $(document).ready(function() {
                     }
                 }
             });
-
             mediaHtml += '</div>';
             return mediaHtml;
         }
-
-        // Fallback for single media item
         if (gag.type === 'Animated' && 'image460sv' in gag.images) {
             return `
                 <a href="${gag.images.image460sv.url}" target="_blank">
@@ -145,13 +138,12 @@ $(document).ready(function() {
         }
     }
 
-
-
-    $(document).on('click', '.download-gag', function() {
+    $(document).on('click', '.download-gag-json', function() {
         const encodedData = $(this).data('gag');
         const title = $(this).data('title');
         downloadJsonData(decodeURIComponent(encodedData), title);
     });
+
 
     // Event listener for hovering over the video
     $(document).on('mouseover', '.hover-video', function() {
@@ -175,39 +167,37 @@ $(document).ready(function() {
     }
 
     function timeSince(timestamp) {
-        // Get the current time in seconds
         const now = Math.floor(Date.now() / 1000);
-
-        // Calculate the difference in seconds
         const diff = now - timestamp;
-
-        // Define the time thresholds in seconds
         const minute = 60;
         const hour = 60 * minute;
         const day = 24 * hour;
+        const week = 7 * day;
         const month = 30 * day;
         const year = 12 * month;
-
         let count, label;
-
-        // Determine the time unit and value
-        if (diff < hour) {
+        if (diff < minute) {
+            count = diff;
+            label = "sec";
+        } else if (diff < hour) {
             count = Math.floor(diff / minute);
-            label = "m"; // minutes
+            label = "min";
         } else if (diff < day) {
             count = Math.floor(diff / hour);
-            label = "h"; // hours
-        } else if (diff < month) {
+            label = "h";
+        } else if (diff < week) {
             count = Math.floor(diff / day);
-            label = "d"; // days
+            label = "d";
+        } else if (diff < month) {
+            count = Math.floor(diff / week);
+            label = "w";
         } else if (diff < year) {
             count = Math.floor(diff / month);
-            label = "m"; // months
+            label = "mo";
         } else {
             count = Math.floor(diff / year);
-            label = "y"; // years
+            label = "y";
         }
-
         return `${count}${label} ago`;
     }
 });
