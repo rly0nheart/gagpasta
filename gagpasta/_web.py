@@ -40,10 +40,19 @@ def index():
 
 
 @app.errorhandler(429)
-def ratelimit_handler(message):
+@app.errorhandler(404)
+@app.errorhandler(500)
+def error_handler(error):
     return jsonify(
-        {"timestamp": datetime.now(), "status": 429, "message": str(message)}
+        {
+            "status": error.code,
+            "message": str(error),
+            "timestamp": datetime.now(),
+        }
     )
+
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 
 @app.route("/gags", methods=["GET"])

@@ -11,7 +11,7 @@ $(document).ready(function() {
             type: 'GET',
             data: $(this).serialize(),
             success: function(response) {
-                if (response.status === 429 && response.message) {
+                if ((response.status === 429 || response.status === 404 || response.status === 500) && response.message) {
                     $("#loading").fadeOut('fast');
                     $("#headerImage").fadeOut('slow');
                     $('#gagsForm').fadeOut('slow');
@@ -19,7 +19,6 @@ $(document).ready(function() {
                     $('#homeButton').fadeIn('slow');
 
                     $("#results").html(formatMessage(response.message)).fadeIn('slow');
-
                 } else if (response.status === 200 && response.gags && response.gags.length > 0) {
                     $("#loading").fadeOut('fast');
                     $("#headerImage").fadeOut('slow');
@@ -50,21 +49,17 @@ $(document).ready(function() {
     }
 
     function formatGags(gags) {
-        const filteredGags = gags.filter(gag => gag.creator);
-        return filteredGags.map((gag, index) => {
-            const creator = gag.creator;
-            const creationTs = gag.creationTs;
+        return gags.filter(gag => gag.creator).map((gag, index, filteredGags) => {
+            const { creator, creationTs, tags, title, type, url, upVoteCount, downVoteCount, awardUsersCount, commentsCount } = gag;
             return `
                 <div class="gag">
                     <div class="gag-header">
                         <div class="gag-download">
-                            <i class="fas fa-file-download download-gag-json" data-gag='${encodeURIComponent(JSON.stringify(gag))}' data-title='${gag.title}'></i>
+                            <i class="fas fa-file-download download-gag-json" data-gag='${encodeURIComponent(JSON.stringify(gag))}' data-title='${title}' title="Download post data as JSON"></i>
                         </div>
                         <div class="author-info">
                             <div class="author-image">
-                                <a href="${creator.avatarUrl}" target="_blank">
-                                    <img src="${creator.avatarUrl}" alt="Author profile picture">
-                                </a>
+                                <img src="${creator.avatarUrl}" alt="Author profile picture">
                             </div>
                             <div class="author-name">
                                 <a href="${creator.profileUrl}" target="_blank">
@@ -77,25 +72,24 @@ $(document).ready(function() {
 
                     <div class="gag-content">
                         <div class="tags">
-                            ${gag.tags.map(tag => `<span class="tag">${tag.key}</span>`).join('')}
+                            ${tags.map(tag => `<span class="tag">${tag.key}</span>`).join('')}
                         </div>
-                        <h3>
-                            <a href="${gag.url}" target="_blank">${gag.title}</a>
-                        </h3>
-                        ${gag.type === 'Article' ? formatArticle(gag) : ''}
+                        <h3><a href="${url}" target="_blank">${title}</a></h3>
+                        ${type === 'Article' ? formatArticle(gag) : ''}
                         ${formatMedia(gag)}
                     </div>
 
                     <div class="gag-stats">
                         <span class="gag-index"><i class="fas fa-arrow-down-wide-short"></i> ${index + 1}/${filteredGags.length}</span>
-                        <span class="upvotes-count"><i class="fas fa-thumbs-up"></i> ${gag.upVoteCount}</span>
-                        <span class="downvotes-count"><i class="fas fa-thumbs-down"></i> ${gag.downVoteCount}</span>
-                        <span class="awards-count"><i class="fas fa-award"></i> ${gag.awardUsersCount}</span>
-                        <span class="comments-count"><i class="fas fa-comments"></i> ${gag.commentsCount}</span>
+                        <span class="upvotes-count"><i class="fas fa-thumbs-up"></i> ${upVoteCount}</span>
+                        <span class="downvotes-count"><i class="fas fa-thumbs-down"></i> ${downVoteCount}</span>
+                        <span class="awards-count"><i class="fas fa-award"></i> ${awardUsersCount}</span>
+                        <span class="comments-count"><i class="fas fa-comments"></i> ${commentsCount}</span>
                     </div>
                 </div>`;
         }).join('');
     }
+
 
     function formatArticle(gag) {
         let articleContent = gag.article.blocks.map(block => block.type === 'RichText' ? `<p>${block.content}</p>` : '').join('');

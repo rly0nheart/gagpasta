@@ -21,7 +21,7 @@ function setCurrentYear() {
 }
 
 // Function to switch between light and dark mode
-function switchMode() {
+function changeTheme() {
     if (document.body.classList.contains('light-mode')) {
         // Switch to dark mode
         document.body.classList.remove('light-mode');

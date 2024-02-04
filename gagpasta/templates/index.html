@@ -11,9 +11,16 @@
     <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
 
     <!-- HTML Meta Tags -->
-    <title>Gag Pasta — Find Freshly Served 9Gag Posts, Al Dente!🍝</title>
+    <meta name="title" content="Gag Pasta — Find Freshly Served 9Gag Posts, Al Dente!🍝">
     <meta name="description"
           content="A free open-source tool for searching 9Gag posts from a user-specified tag or group.">
+    <meta name="keywords" content="9gag,9gag-api">
+    <meta name="robots" content="index, nofollow">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="1 days">
+    <meta name="author" content="Richard Mwewa">
+
 
     <!-- Facebook Meta Tags -->
     <meta property="og:url" content="https://gagpasta.com">
@@ -24,14 +31,14 @@
     <meta property="og:image" content="https://gagpasta.com/static/images/web-preview.png">
 
     <!-- Twitter Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:card" content="https://gagpasta.com/static/images/web-preview.png">
     <meta property="twitter:domain" content="gagpasta.com">
     <meta property="twitter:url" content="https://gagpasta.com">
+    <meta name="twitter:creator" content="@rly0nheart">
     <meta name="twitter:title" content="Gag Pasta — Find Freshly Served 9Gag Posts, Al Dente!🍝">
     <meta name="twitter:description"
           content="A free open-source tool for searching 9Gag posts from a user-specified tag or group.">
     <meta name="twitter:image" content="https://gagpasta.com/static/images/web-preview.png">
-
 </head>
 
 <body onload="initialisePage()">
@@ -46,7 +53,7 @@
                 </a>
             </li>
             <li>
-                <a id="themeToggle" onclick="switchMode(); return false;">
+                <a id="themeToggle" onclick="changeTheme(); return false;">
                     <i class="fas fa-adjust"></i> Theme
                 </a>
             </li>
@@ -85,19 +92,20 @@
     <div id="groupInput" style="display:none;">
         <label for="groupName">Group Name:</label>
         <select id="groupName" name="group-name">
-            <option value="wtf">WTF</option>
+            <option value="random">Random</option>
+            <option value="animals">Animals</option>
+            <option value="anime">Anime & Manga</option>
+            <option value="comic">Comic</option>
+            <option value="food">Food</option>
             <option value="funny">Funny</option>
+            <option value="gaming">Gaming</option>
             <option value="history">History</option>
             <option value="music">Music</option>
-            <option value="gaming">Gaming</option>
-            <option value="comic">Comic</option>
-            <option value="wholesome">Wholesome</option>
-            <option value="anime">Anime & Manga</option>
-            <option value="animals">Animals</option>
             <option value="relationship">Relationship</option>
             <option value="science">Science</option>
-            <option value="food">Food</option>
             <option value="superhero">Superhero</option>
+            <option value="wholesome">Wholesome</option>
+            <option value="wtf">WTF</option>
         </select>
     </div>
 
