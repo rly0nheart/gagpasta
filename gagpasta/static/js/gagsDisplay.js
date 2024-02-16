@@ -20,6 +20,8 @@ $(document).ready(function() {
 
                     $("#results").html(formatMessage(response.message)).fadeIn('slow');
                 } else if (response.status === 200 && response.gags && response.gags.length > 0) {
+                    sessionStorage.setItem('gagData', JSON.stringify(response.gags)); // Store gags data in session storage
+                    $('#downloadData').show(); // Make sure this button is in your HTML and initially set to display:none;
                     $("#loading").fadeOut('fast');
                     $("#headerImage").fadeOut('slow');
                     $('#homeButton').fadeIn('slow');
@@ -40,6 +42,40 @@ $(document).ready(function() {
         });
     });
 
+    // Assumes you have a button with id="downloadData" in your HTML.
+    $('#downloadData').click(function() {
+        const data = sessionStorage.getItem('gagData');
+        if (data) {
+            const blob = new Blob([data], {type: "application/json;charset=utf-8"});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'gagData.json'; // Name the file
+            document.body.appendChild(a); // Append the anchor to body
+            a.click(); // Simulate click on the anchor
+            document.body.removeChild(a); // Remove the anchor from body
+        }
+    });
+
+    // Event listeners for hover and leave on videos
+    $(document).on('mouseover', '.hover-video', function() {
+        this.play();
+    });
+
+    $(document).on('mouseleave', '.hover-video', function() {
+        this.pause();
+    });
+
+    // Function for downloading gag data (if needed)
+    $(document).on('click', '.download-gag', function() {
+        const gagKey = $(this).data('gag-key');
+        const title = $(this).data('title');
+        const gagData = sessionStorage.getItem(gagKey);
+        if (gagData) {
+            downloadJsonData(gagData, title);
+        }
+    });
+
     function formatMessage(message) {
         return `
             <div class="status-message">
@@ -50,15 +86,27 @@ $(document).ready(function() {
 
     function formatGags(gags) {
         return gags.filter(gag => gag.creator).map((gag, index, filteredGags) => {
-            const { creator, creationTs, tags, title, type, url, upVoteCount, downVoteCount, awardUsersCount, commentsCount } = gag;
+            // Store each gag's data in session storage
+            const gagKey = `gagData_${index}`;
+            sessionStorage.setItem(gagKey, JSON.stringify(gag));
+
+            const { creator, creationTs, tags, title, type, url, upVoteCount, downVoteCount, awardUsersCount, commentsCount, images } = gag;
+
+            let mediaUrls = [];
+            if (type === 'Animated') {
+                images && images.image460sv && mediaUrls.push(images.image460sv.url);
+            } else if (type === 'Photo' && images && images.image700) {
+                mediaUrls.push(images.image700.url);
+            }
+
             return `
                 <div class="gag">
                     <div class="gag-header">
                         <div class="gag-download">
-                            <i class="fas fa-file-download download-gag-json" data-gag='${encodeURIComponent(JSON.stringify(gag))}' data-title='${title}' title="Download post data as JSON"></i>
+                            <i class="fas fa-file-download download-gag" data-gag-key="${gagKey}" data-title="${title}" title="Download post data"></i>
                         </div>
                         <div class="author-info">
-                            <div class="author-image">
+                            <div class="author-image" href="${creator.profileUrl}">
                                 <img src="${creator.avatarUrl}" alt="Author profile picture">
                             </div>
                             <div class="author-name">
@@ -132,32 +180,27 @@ $(document).ready(function() {
         }
     }
 
-    $(document).on('click', '.download-gag-json', function() {
-        const encodedData = $(this).data('gag');
-        const title = $(this).data('title');
-        downloadJsonData(decodeURIComponent(encodedData), title);
-    });
-
-
-    // Event listener for hovering over the video
-    $(document).on('mouseover', '.hover-video', function() {
-        this.play();
-    });
-
-    // Event listener for leaving the hover on the video
-    $(document).on('mouseleave', '.hover-video', function() {
-        this.pause();
-    });
-
     function downloadJsonData(data, title) {
-        // Parse JSON string to JSON object
         const jsonData = JSON.parse(data);
-
-        // Create a Blob from the JSON data
         var blob = new Blob([JSON.stringify(jsonData)], {type: "application/json;charset=utf-8"});
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = `${title}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
 
-        // Use FileSaver to save the Blob as a file
-        saveAs(blob, `${title}.json`);
+    function downloadMedia(url, title) {
+        const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+        fetch(proxyUrl + url)
+            .then(response => response.blob())
+            .then(blob => {
+                let fileExtension = url.split('.').pop(); // Extracts file extension from URL
+                saveAs(blob, `${title}.${fileExtension}`);
+            })
+            .catch(e => alert(e));
     }
 
     function timeSince(timestamp) {
