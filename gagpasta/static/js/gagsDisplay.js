@@ -42,7 +42,6 @@ $(document).ready(function() {
         });
     });
 
-    // Assumes you have a button with id="downloadData" in your HTML.
     $('#downloadData').click(function() {
         const data = sessionStorage.getItem('gagData');
         if (data) {
