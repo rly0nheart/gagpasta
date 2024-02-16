@@ -21,7 +21,7 @@ $(document).ready(function() {
                     $("#results").html(formatMessage(response.message)).fadeIn('slow');
                 } else if (response.status === 200 && response.gags && response.gags.length > 0) {
                     sessionStorage.setItem('gagData', JSON.stringify(response.gags)); // Store gags data in session storage
-                    $('#downloadData').show(); // Make sure this button is in your HTML and initially set to display:none;
+                    $('#downloadData').show();
                     $("#loading").fadeOut('fast');
                     $("#headerImage").fadeOut('slow');
                     $('#homeButton').fadeIn('slow');
