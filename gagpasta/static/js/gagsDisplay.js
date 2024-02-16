@@ -205,35 +205,40 @@ $(document).ready(function() {
     function timeSince(timestamp) {
         const now = Math.floor(Date.now() / 1000);
         const diff = now - timestamp;
+
         const minute = 60;
         const hour = 60 * minute;
         const day = 24 * hour;
         const week = 7 * day;
         const month = 30 * day;
         const year = 12 * month;
-        let count, label;
+
+        let count;
+        let label;
+
         if (diff < minute) {
             count = diff;
-            label = "sec";
+            label = count === 1 ? "second" : "seconds";
         } else if (diff < hour) {
             count = Math.floor(diff / minute);
-            label = "min";
+            label = count === 1 ? "minute" : "minutes";
         } else if (diff < day) {
             count = Math.floor(diff / hour);
-            label = "h";
+            label = count === 1 ? "hour" : "hours";
         } else if (diff < week) {
             count = Math.floor(diff / day);
-            label = "d";
+            label = count === 1 ? "day" : "days";
         } else if (diff < month) {
             count = Math.floor(diff / week);
-            label = "w";
+            label = count === 1 ? "week" : "weeks";
         } else if (diff < year) {
             count = Math.floor(diff / month);
-            label = "mo";
+            label = count === 1 ? "month" : "months";
         } else {
             count = Math.floor(diff / year);
-            label = "y";
+            label = count === 1 ? "year" : "years";
         }
-        return `${count}${label} ago`;
+
+        return count === 0 ? "just now" : `${count} ${label} ago`;
     }
 });
