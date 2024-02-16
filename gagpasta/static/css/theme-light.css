@@ -55,7 +55,7 @@
     .light-mode select,
     .light-mode input[type='text'],
     .light-mode input[type='number'] {
-        background-color: #fafafa;
+        background-color: #f2f2f2;
         border-color: #ccc; /
     }
 
