@@ -51,12 +51,10 @@ function changeTheme() {
 
 
 function goHome() {
-        $('#results').fadeOut('slow', function() {
-        $("#headerImage").fadeIn('slow');
-        $("#gagsForm").fadeIn('slow');
-        $("#backButton").fadeOut('slow');
-        $("#timestamp").fadeOut('slow');
-        $("#homeButton").fadeOut('slow');
+        $('#results').fadeOut('fast', function() {
+        $("#headerImage").fadeIn('fast');
+        $("#mainForm").fadeIn('fast');
+        $("#homeButton").fadeOut('fast');
     });
 
     // Scroll to the top of the page (optional)

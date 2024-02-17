@@ -45,7 +45,7 @@
 <img id="headerImage" src="static/images/gagpasta-dark.png" alt="Gag Pasta header image"
      style="max-width:100%;height:auto;display: none;">
 <header>
-    <div class="top-nav">
+    <div class="top-nav" onmousedown='return false;' onselect='return false;'>
         <ul>
             <li>
                 <a id="homeButton" style="display: none;" onclick="goHome(); return false;">
@@ -58,8 +58,8 @@
                 </a>
             </li>
             <li>
-                <a href="https://github.com/rly0nheart/gagpasta/issues" rel="noopener noreferrer">
-                    <i class="fas fa-bug"></i> Bug Tracker
+                <a href="https://github.com/rly0nheart/gagpasta/" rel="noopener noreferrer">
+                    <i class="fa-brands fa-github-alt"></i> GitHub
                 </a>
             </li>
             <li>
@@ -70,12 +70,9 @@
             </li>
         </ul>
     </div>
-    <div id="loading" style="display: none;">
-        <img src="static/images/loading.gif" alt="Loading..."/>
-    </div>
 </header>
 
-<form id="gagsForm" action="/api/gags" method="get">
+<form id="mainForm" action="/api/gags" method="get">
     <div>
         <label for="gagsSource">Select Gags' Source:</label>
         <select id="gagsSource" name="source" required>
@@ -134,10 +131,9 @@
         <input type="number" id="gagsLimit" name="limit" itemtype="number" value=10 min=10 max=100 required>
     </div>
 
-    <button type="submit">
+    <button type="submit" id="submitButton">
         <i class="fas fa-arrow-right"></i>
     </button>
-
 </form>
 
 <div id="results" style="display: none;"></div>
@@ -159,7 +155,7 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="static/js/main.js"></script>
 <script src="static/js/FileSaver.js"></script>
-<script src="static/js/gagsDisplay.js"></script>
+<script src="static/js/showGags.js"></script>
 
 <!-- Mastodon verification link-->
 <a rel="me" href="https://infosec.exchange/@rly0nheart" id="mastodon-verification">Mastodon</a>

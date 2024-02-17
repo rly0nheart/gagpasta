@@ -1,11 +1,12 @@
 $(document).ready(function() {
-    $("#top-nav").fadeIn('slow');
-    $("#headerImage").fadeIn('slow');
-    $("body").fadeIn('slow');
+    $("#top-nav").fadeIn('fast');
+    $("#headerImage").fadeIn('fast');
+    $("body").fadeIn('fast');
 
-    $("#gagsForm").submit(function(event) {
+    $("#mainForm").submit(function(event) {
         event.preventDefault();
-        $("#loading").fadeIn('fast');
+        // Change button icon to loading spinner
+        $('#submitButton').html('<i class="fa-solid fa-circle-notch fa-spin"></i>');
         $.ajax({
             url: '/gags',
             type: 'GET',
@@ -13,33 +14,41 @@ $(document).ready(function() {
             success: function(response) {
                 if ((response.status === 429 || response.status === 404 || response.status === 500) && response.message) {
                     $("#loading").fadeOut('fast');
-                    $("#headerImage").fadeOut('slow');
-                    $('#gagsForm').fadeOut('slow');
-                    $('#timestamp').fadeIn('slow');
-                    $('#homeButton').fadeIn('slow');
-
-                    $("#results").html(formatMessage(response.message)).fadeIn('slow');
+                    $("#headerImage").fadeOut('fast');
+                    $('#mainForm').fadeOut('fast');
+                    $('#homeButton').fadeIn('fast');
+                    $("#results").html(formatMessage(response.message)).fadeIn('fast');
                 } else if (response.status === 200 && response.gags && response.gags.length > 0) {
                     sessionStorage.setItem('gagData', JSON.stringify(response.gags)); // Store gags data in session storage
-                    $('#downloadData').show();
                     $("#loading").fadeOut('fast');
-                    $("#headerImage").fadeOut('slow');
-                    $('#homeButton').fadeIn('slow');
-
-                    $("#gagsForm").fadeOut('slow', function() {
-                        $("#results").html(formatGags(response.gags)).fadeIn('slow');
+                    $("#headerImage").fadeOut('fast');
+                    $('#homeButton').fadeIn('fast');
+                    $("#mainForm").fadeOut('fast', function() {
+                        $("#results").html(formatGags(gags=response.gags)).fadeIn('fast');
                     });
                 } else if (response.status === 200 && response.gags.length === 0) {
                     $("#loading").fadeOut('fast');
-                    $("#headerImage").fadeOut('slow');
-                    $('#gagsForm').fadeOut('slow');
-                    $('#timestamp').fadeIn('slow');
-                    $('#homeButton').fadeIn('slow');
-
-                    $("#results").html(formatMessage("No gags were found. Please adjust your search criteria and try again.")).fadeIn('slow');
+                    $("#headerImage").fadeOut('fast');
+                    $('#mainForm').fadeOut('fast');
+                    $('#homeButton').fadeIn('fast');
+                    $("#results").html(formatMessage("No gags were found. Please adjust your search criteria and try again.")).fadeIn('fast');
                 }
             },
+
+            complete: function(){
+                // Change back to the original icon after Ajax request is complete
+                $('#submitButton').html('<i class="fas fa-arrow-right"></i>');
+            }
         });
+    });
+
+    // Event listeners for hover and leave on videos
+    $(document).on('mouseover', '.hover-video', function() {
+        this.play();
+    });
+
+    $(document).on('mouseleave', '.hover-video', function() {
+        this.pause();
     });
 
     $('#downloadData').click(function() {
@@ -56,15 +65,6 @@ $(document).ready(function() {
         }
     });
 
-    // Event listeners for hover and leave on videos
-    $(document).on('mouseover', '.hover-video', function() {
-        this.play();
-    });
-
-    $(document).on('mouseleave', '.hover-video', function() {
-        this.pause();
-    });
-
     // Function for downloading gag data (if needed)
     $(document).on('click', '.download-gag', function() {
         const gagKey = $(this).data('gag-key');
@@ -74,6 +74,29 @@ $(document).ready(function() {
             downloadJsonData(gagData, title);
         }
     });
+
+    function downloadJsonData(data, title) {
+        const jsonData = JSON.parse(data);
+        var blob = new Blob([JSON.stringify(jsonData)], {type: "application/json;charset=utf-8"});
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = `${title}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+
+    function downloadMedia(url, title) {
+        const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+        fetch(proxyUrl + url)
+            .then(response => response.blob())
+            .then(blob => {
+                let fileExtension = url.split('.').pop(); // Extracts file extension from URL
+                saveAs(blob, `${title}.${fileExtension}`);
+            })
+            .catch(e => alert(e));
+    }
 
     function formatMessage(message) {
         return `
@@ -99,10 +122,10 @@ $(document).ready(function() {
             }
 
             return `
-                <div class="gag">
-                    <div class="gag-header">
+                <div class="gag" onmousedown='return false;' onselect='return false;'>
+                    <div class="gag-header" >
                         <div class="gag-download">
-                            <i class="fas fa-file-download download-gag" data-gag-key="${gagKey}" data-title="${title}" title="Download post data"></i>
+                            <i class="fas fa-file-download download-gag" data-gag-key="${gagKey}" data-title="${title}" title="Download raw post data"></i>
                         </div>
                         <div class="author-info">
                             <div class="author-image" href="${creator.profileUrl}">
@@ -112,7 +135,7 @@ $(document).ready(function() {
                                 <a href="${creator.profileUrl}" target="_blank">
                                     ${creator.fullName}
                                 </a>
-                                <span class="username">@${creator.username} • ${timeSince(creationTs)}</span>
+                                <span class="username">@${creator.username}・${timeSince(creationTs)}</span>
                             </div>
                         </div>
                     </div>
@@ -127,7 +150,7 @@ $(document).ready(function() {
                     </div>
 
                     <div class="gag-stats">
-                        <span class="gag-index"><i class="fas fa-arrow-down-wide-short"></i> ${index + 1}/${filteredGags.length}</span>
+                        <span class="gag-index"><i class="fas fa-arrow-down-1-9"></i> ${index + 1}/${filteredGags.length}</span>
                         <span class="upvotes-count"><i class="fas fa-thumbs-up"></i> ${upVoteCount}</span>
                         <span class="downvotes-count"><i class="fas fa-thumbs-down"></i> ${downVoteCount}</span>
                         <span class="awards-count"><i class="fas fa-award"></i> ${awardUsersCount}</span>
@@ -177,29 +200,6 @@ $(document).ready(function() {
         } else {
             return `<p>No media available.</p>`;
         }
-    }
-
-    function downloadJsonData(data, title) {
-        const jsonData = JSON.parse(data);
-        var blob = new Blob([JSON.stringify(jsonData)], {type: "application/json;charset=utf-8"});
-        var url = URL.createObjectURL(blob);
-        var a = document.createElement('a');
-        a.href = url;
-        a.download = `${title}.json`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-    }
-
-    function downloadMedia(url, title) {
-        const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-        fetch(proxyUrl + url)
-            .then(response => response.blob())
-            .then(blob => {
-                let fileExtension = url.split('.').pop(); // Extracts file extension from URL
-                saveAs(blob, `${title}.${fileExtension}`);
-            })
-            .catch(e => alert(e));
     }
 
     function timeSince(timestamp) {
