@@ -79,16 +79,29 @@
 
 
     .dark-mode .menu-content {
-        background-color: #181a21; /* Matching the form in dark mode */
+        background-color: #181a21;
     }
 
     .dark-mode .menu-content a:hover {
-        background-color: #3d4461; /* Visible hover background in dark mode */
+        background-color: #3d4461;
     }
 
+    .dark-mode .api-docs {
+        background-color: #2a2d3a;
+        color: inherit;
+        box-shadow: 0 4px 8px rgba(0, 192, 255, 0.2);
+    }
 
+    .dark-mode .api-docs:hover {
+        box-shadow: 0 8px 16px rgba(0, 192, 255, 0.4);
+    }
 
-
-
-
+    .dark-mode .api-docs pre,
+    .dark-mode .api-docs code {
+        background-color: #232633;
+        border: 1px solid #3d4461;
+        color: #e6e6e6;
+        overflow-x: auto;
+        padding: 10px;
+    }
 </style>

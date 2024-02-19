@@ -42,11 +42,13 @@
 </head>
 
 <body onload="initialisePage()">
-<img id="headerImage" src="static/images/gagpasta-dark.png" alt="Gag Pasta header image"
-     style="max-width:100%;height:auto;display: none;">
 <header>
     <div class="top-nav" onmousedown='return false;' onselect='return false;'>
         <ul>
+            <li>
+                <img src="static/images/gagpasta-light.png" alt="Gag Pasta logo." id="Logo">
+            </li>
+
             <li>
                 <a id="homeButton" style="display: none;" onclick="goHome(); return false;">
                     <i class="fas fa-house"></i>Home
@@ -59,7 +61,7 @@
             </li>
             <li>
                 <a href="https://github.com/rly0nheart/gagpasta/" rel="noopener noreferrer">
-                    <i class="fa-brands fa-github-alt"></i> GitHub
+                    <i class="fa-brands fa-github"></i> GitHub
                 </a>
             </li>
             <li>
@@ -68,9 +70,16 @@
                     <i class="fas fa-book"></i> License
                 </a>
             </li>
+            <li>
+                <a id="ApiDocumentation">
+                    <i class="fas fa-code"></i> API
+                </a>
+            </li>
         </ul>
     </div>
 </header>
+
+<div id="apiDocumentationContainer" style="display: none;"></div>
 
 <form id="mainForm" action="/api/gags" method="get">
     <div>
@@ -132,11 +141,11 @@
     </div>
 
     <button type="submit" id="submitButton">
-        <i class="fas fa-arrow-right"></i>
+        <i class="fa-solid fa-chevron-right"></i>
     </button>
 </form>
 
-<div id="results" style="display: none;"></div>
+<div id="resultsContainer" style="display: none;"></div>
 
 <footer>
     <p>&copy; Copyright
@@ -152,10 +161,11 @@
         data-color="#007bff"
         data-position="Left" data-x_margin="18" data-y_margin="18">
 </script>
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="static/js/main.js"></script>
+<script src="static/js/scripts.js"></script>
 <script src="static/js/FileSaver.js"></script>
-<script src="static/js/showGags.js"></script>
 
 <!-- Mastodon verification link-->
 <a rel="me" href="https://infosec.exchange/@rly0nheart" id="mastodon-verification">Mastodon</a>

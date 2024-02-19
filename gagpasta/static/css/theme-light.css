@@ -38,7 +38,7 @@
     .light-mode form {
         background-color: #ffffff;
         color: #333;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 
     .light-mode form:hover {
@@ -74,14 +74,29 @@
     }
 
     .light-mode .menu-content {
-        background-color: #f2f2f2; /* Matching the form in light mode */
+        background-color: #f2f2f2;
     }
 
     .light-mode .menu-content a:hover {
         background-color: #e6e6e6; /* Visible hover background in light mode */
     }
 
+    .light-mode .api-docs {
+        background-color: #ffffff;
+        color: inherit;
+    }
 
+    .light-mode .api-docs:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
 
-
+    .light-mode .api-docs pre,
+    .light-mode .api-docs code {
+        background-color: #f4f4f4; /* Light grey background for contrast */
+        border: 1px solid #ccc; /* Subtle border for definition */
+        color: #333; /* Dark text for readability */
+        overflow-x: auto; /* Allows horizontal scrolling for overflow content */
+        padding: 10px; /* Padding for better spacing */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
 </style>

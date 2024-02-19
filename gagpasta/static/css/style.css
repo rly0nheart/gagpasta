@@ -14,6 +14,7 @@
     .gag,
     .tag,
     .top-nav ul li a,
+    .api-docs,
     form,
     .download-gag,
     .media-grid,
@@ -44,7 +45,7 @@
     /* Sets the default style for the body of the page */
     body {
         display: none;
-        padding-top: 50px;
+        padding-top: 90px;
         text-align: center;
         font-family: 'Bebas Neue', sans-serif;
     }
@@ -149,6 +150,7 @@
     /* Styles for the download button on gags */
     .download-gag {
         font-family: 'Bebas Neue', sans-serif;
+        background: none;
         display: inline-block;
         margin-top: 10px;
         padding: 5px 10px;
@@ -277,17 +279,15 @@
         border: 2px solid #ff6b81;
     }
     button {
-        font-size: 16px;
+        font-size: 15px;
         color: inherit;
-        background: none;
         border: none;
         padding: 10px 20px;
-        border-radius: 100px;
+        border-radius: 200px;
         display: inline-flex;
         align-items: center;
         gap: 10px;
         cursor: pointer;
-        transition: background-color 0.3s, color 0.3s;
     }
 
     /* Footer Style */
@@ -366,13 +366,12 @@
         transform: scale(1.05);
     }
 
-
- /* Gag Menu Positioning - Now for the download icon */
+    /* Gag download icon positioning */
     .gag-download {
         position: absolute;
-        top: 20px; /* Adjust to position the icon */
-        right: 23px; /* Adjust as needed */
-        font-size: 1.2em; /* Icon size, adjust as needed */
+        top: 20px;
+        right: 23px;
+        font-size: 1.2em;
         cursor: pointer;
         z-index: 100;
         transition: color 0.3s; /* Smooth transition for hover effect */
@@ -384,6 +383,42 @@
 
     .gag-download i:hover {
         color: #007bff; /* Highlight color on hover */
+    }
+
+    .api-docs {
+        border-radius: 10px;
+        padding: 20px;
+        margin: 20px auto;
+        box-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
+        max-width: 800px; /* Restrict max width for readability */
+        text-align: left; /* Ensures content within .api-docs is left-aligned */
+        font-family: 'Bebas Neue', sans-serif;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .api-docs h2, .api-docs h3 {
+        color: inherit; /* Highlight color for headings */
+        text-decoration: underline;
+        text-align: center;
+    }
+
+    .api-docs code, .api-docs pre {
+        padding: 10px;
+        display: block;
+        overflow-x: auto; /* For horizontal scrolling */
+        text-align: left; /* Ensures code blocks are left-aligned if desired */
+    }
+
+    .dark-mode .api-docs code {
+        display: block;
+        white-space: pre-wrap;
+    }
+
+    #Logo {
+        height: 50px;
+        width: auto;
+        cursor: default;
+        vertical-align: middle; /* Adjusts the vertical alignment */
     }
 
 </style>
