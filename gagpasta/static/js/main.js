@@ -206,7 +206,7 @@ $(document).ready(function() {
         const apiDocumentationHtml = `
             <div class="api-docs">
                 <h2>API Documentation</h2>
-                <p>Welcome to the Gag Pasta API! Here's how you can integrate your applications with our treasure trove of gags. The API allows you to search and retrieve gag posts programmatically..</p>
+                <p>Welcome to the Gag Pasta API!. The API will allow you to search and retrieve 9gag posts programmatically.</p>
 
                 <div class="api-content">
                     <h3>Base URL</h3>
@@ -222,35 +222,167 @@ $(document).ready(function() {
                     <h3>Parameters</h3>
                     <p>Both endpoints accept the following query parameters to customize your requests:</p>
                     <ul>
-                        <li><code>limit</code> - Specifies the number of results to return. Default is 20.</li>
-                        <li><code>media</code> - Returns posts with the specified media type</li>
+                        <li><code>limit</code> - Specifies the number of results to return. Default is 10.</li>
+                        <li><code>media</code> - Returns posts with the specified media type. Accepts the following values:
+                            <ul>
+                                <li>'animated' - Returns posts with video attachments only.</li>
+                                <li>'photo' - Returns posts with Photo attachments only.</li>
+                            </ul>
+                        </li>
+                        <li><code>type</code> - Returns posts from the specified listing type. Accepts the following values:
+                            <ul>
+                                <li>'home' - Returns posts from the home listing.</li>
+                                <li>'top' - Returns top trending posts.</li>
+                                <li>'trending' - Returns posts currently trending.</li>
+                                <li>'fresh' - Returns the latest posts.</li>
+                            </ul>
+                        </li>
                     </ul>
                     <h3>Example Request</h3>
                     <p>Here is an example of how to request gags by a tag:</p>
-                    <code>curl -X GET "https://gagpasta.com/gags?source=tag&tag-name=funny&limit=5"</code>
+                    <code>curl -X GET "https://gagpasta.com/gags?source=tag&tag-name=funny&limit=1"</code>
 
                     <h3>Response Format</h3>
-                    <p>The API returns data in JSON format. Below is an example response from the <code>/gags/tag/funny</code> endpoint:</p>
-                    <pre>{
-        "status": "success",
-        "data": [
-            {
-                "id": "12345",
-                "title": "Funny Doge Meme",
-                "url": "https://gagpasta.com/gags/12345",
-                "tags": ["doge", "meme", "funny"],
-                "upVoteCount": 420,
-                "downVoteCount": 69,
-                "commentsCount": 1337,
-                "creationTs": "2024-02-18T12:34:56Z",
-                "images": {
-                    "image700": {
-                        "url": "https://gagpasta.com/static/images/12345.jpg"
-                    }
-                }
-            }
-        ]
-    }</pre>
+                    <p>The API returns data in JSON format. Below is an example response from the <code>/gags?source=tag&tag-name=funny</code> endpoint:</p>
+                    <pre>
+                        {
+ "gags": [
+    {
+      "annotationTags": [
+        "Walking"
+      ],
+      "awardState": 0,
+      "awardUsers": [
+        {
+          "about": "My Funny Collection",
+          "accountId": "55597216",
+          "activeTs": 1708458869,
+          "avatarUrl": "https://accounts-cdn.9gag.com/media/avatar/55597216_100_1.jpg",
+          "creationTs": 1584339389,
+          "emojiStatus": "\ud83c\uddee\ud83c\uddf3",
+          "fullName": "Gandikota",
+          "isActivePro": false,
+          "isActiveProPlus": false,
+          "isVerifiedAccount": false,
+          "preferences": {
+            "accentColor": "",
+            "backgroundColor": "",
+            "hideActiveTs": 0,
+            "hideProBadge": 0
+          },
+          "profileUrl": "https://9gag.com/u/gandikota1",
+          "userId": "55040855",
+          "username": "gandikota1"
+        }
+      ],
+      "awardUsersCount": 1,
+      "comment": {
+        "canAnonymous": false,
+        "latestCommentText": "",
+        "listType": "comment",
+        "opToken": "uZKB++Hoxo7imlIhQLEwLA==.vfBWwp0Mfy+tDzsngIyYd3H230VNr6NsvI3KtVH+X7B8pCOaSX6+m0x6Cb5b/Ex0FNPdQeDTrF7NOZEqglZZdU2dP9271bK8BmTL6buG0biix0aTtgSFkhMK/vo8sIRbZ8hnXz5SXsfWGi3KCBVDT6XDe+gCJAIvAo08VSB2POSj/Hx+/u5cWPoloL7IP3th",
+        "pinnedCommentCount": 0,
+        "updateTs": 1708462768
+      },
+      "commentsCount": 26,
+      "creationTs": 1708455994,
+      "creator": {
+        "about": "My Funny Collection",
+        "accountId": "63152222",
+        "activeTs": 1708459569,
+        "avatarUrl": "https://accounts-cdn.9gag.com/media/avatar/63152222_100_1.jpg",
+        "creationTs": 1633795222,
+        "emojiStatus": "",
+        "fullName": "Cosmo Kramer",
+        "isActivePro": false,
+        "isActiveProPlus": false,
+        "isVerifiedAccount": false,
+        "preferences": {
+          "accentColor": "",
+          "backgroundColor": "",
+          "hideActiveTs": 0,
+          "hideProBadge": 0
+        },
+        "profileUrl": "https://9gag.com/u/kramertheassman",
+        "userId": "61138088",
+        "username": "kramertheassman"
+      },
+      "description": "",
+      "downVoteCount": 17,
+      "hasLongPostCover": 0,
+      "id": "aPgNovg",
+      "images": {
+        "image460": {
+          "height": 258,
+          "url": "https://img-9gag-fun.9cache.com/photo/aPgNovg_460s.jpg",
+          "webpUrl": "https://img-9gag-fun.9cache.com/photo/aPgNovg_460swp.webp",
+          "width": 460
+        },
+        "image460sv": {
+          "av1Url": "https://img-9gag-fun.9cache.com/photo/aPgNovg_460svav1.mp4",
+          "duration": 93,
+          "h265Url": "https://img-9gag-fun.9cache.com/photo/aPgNovg_460svh265.mp4",
+          "hasAudio": 1,
+          "height": 258,
+          "url": "https://img-9gag-fun.9cache.com/photo/aPgNovg_460sv.mp4",
+          "vp8Url": "https://img-9gag-fun.9cache.com/photo/aPgNovg_460svwm.webm",
+          "vp9Url": "https://img-9gag-fun.9cache.com/photo/aPgNovg_460svvp9.webm",
+          "width": 460
+        },
+        "image700": {
+          "height": 258,
+          "url": "https://img-9gag-fun.9cache.com/photo/aPgNovg_460s.jpg",
+          "width": 460
+        },
+        "imageFbThumbnail": {
+          "height": 220,
+          "url": "https://img-9gag-fun.9cache.com/photo/aPgNovg_fbthumbnail.jpg",
+          "width": 220
+        }
+      },
+      "interests": [
+        "humor",
+        "wtf",
+        "random"
+      ],
+      "isAnonymous": false,
+      "isVoteMasked": 0,
+      "nsfw": 0,
+      "postSection": {
+        "imageUrl": "https://accounts-cdn.9gag.com/media/avatar/63152222_100_1.jpg",
+        "name": "kramertheassman",
+        "url": "https://9gag.com/u/kramertheassman"
+      },
+      "promoted": 0,
+      "sourceDomain": "",
+      "sourceUrl": "",
+      "tags": [
+        {
+          "key": "wtf",
+          "url": "/tag/wtf"
+        },
+        {
+          "key": "funny",
+          "url": "/tag/funny"
+        },
+        {
+          "key": "random",
+          "url": "/tag/random"
+        }
+      ],
+      "title": "Backwards running competition but the video is in reverse",
+      "type": "Animated",
+      "upVoteCount": 342,
+      "url": "http://9gag.com/gag/aPgNovg"
+    }
+  ],
+  "media": null,
+  "status": 200,
+  "timestamp": "Tue, 20 Feb 2024 23:00:13 GMT",
+  "type": "home"
+}
+
+                    </pre>
                 </div>
             </div>
         `;
