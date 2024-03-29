@@ -1,4 +1,11 @@
 <style>
+    /* Font Setup */
+    @font-face {
+        font-family: 'Arial';
+        font-weight: normal;
+        font-style: normal;
+    }
+
     /* Global Transition Style */
     /* Defines a smooth transition effect for various elements */
     body,
@@ -39,13 +46,13 @@
         display: none;
         padding-top: 90px;
         text-align: center;
-        font-family: 'Arial';
+        font-family: 'Arial', sans-serif;
     }
 
     /* Header Style */
     /* Styles for the main header (h1) element */
     h1 {
-        font-family: 'Arial';
+        font-family: 'Arial', sans-serif;
         text-align: center;
     }
 
@@ -61,7 +68,7 @@
     /* Gag Card Style */
     /* Styles for individual gag cards */
     .gag {
-        font-family: 'Arial';
+        font-family: 'Arial', sans-serif;
         position: relative;
         max-width: 600px;
         margin: 20px auto;
@@ -130,7 +137,7 @@
     .downvotes-count,
     .comments-count,
     .awards-count {
-        font-family: 'Arial';
+        font-family: 'Arial', sans-serif;
         display: inline-block;
         margin-top: 10px;
         padding: 5px 10px;
@@ -141,7 +148,7 @@
     /* Download Button Style */
     /* Styles for the download button on gags */
     .download-gag {
-        font-family: 'Arial';
+        font-family: 'Arial', sans-serif;
         background: none;
         display: inline-block;
         margin-top: 10px;
@@ -171,7 +178,7 @@
         text-decoration: underline;
     }
     .username {
-        font-family: 'Arial';
+        font-family: 'Arial', sans-serif;
         font-size: 0.9em;
         cursor: default;
         margin-top: 4px;
@@ -251,7 +258,7 @@
         margin-top: 20px;
         padding: 20px;
         border-radius: 8px;
-        font-family: 'Arial';
+        font-family: 'Arial', sans-serif;
     }
     label {
         display: block;
@@ -265,7 +272,7 @@
         border: 1px solid;
         border-radius: 5px;
         box-sizing: border-box;
-        font-family: 'Arial';
+        font-family: 'Arial', sans-serif;
     }
     input:required:invalid {
         border: 2px solid #ff6b81;
@@ -288,7 +295,7 @@
         text-align: center;
         margin-top: 40px;
         font-size: 0.8em;
-        font-family: 'Arial';
+        font-family: 'Arial', sans-serif;
     }
 
     /* Hover Effect for Download Button, */
@@ -384,7 +391,7 @@
         box-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
         max-width: 800px; /* Restrict max width for readability */
         text-align: left; /* Ensures content within .api-docs is left-aligned */
-        font-family: 'Arial';
+        font-family: 'Arial', sans-serif;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 
