@@ -16,12 +16,12 @@ async def get_data(endpoint: str, session: aiohttp.ClientSession) -> dict:
     """
     Asynchronously fetches JSON data from a specified API endpoint.
 
-    :param endpoint:
-    :type endpoint:
-    :param session:
-    :type session:
-    :return:
-    :rtype:
+    :param endpoint: Endpoint to get data from.
+    :type endpoint: str
+    :param session: An Aiohttp session to use for the request.
+    :type session: aiohttp.ClientSession
+    :return: The endpoint's response in JSON format.
+    :rtype: dict
     """
     try:
         async with session.get(
@@ -56,11 +56,16 @@ async def paginate(
     Paginates the gags based on the limit and media type.
 
     :param initial_endpoint: The specific 9Gag API endpoint to fetch gags from.
+    :type initial_endpoint: str
     :param session: An aiohttp session to use for the request.
+    :type session: aiohttp.ClientSession
     :param limit: The maximum number of gags to fetch and return.
+    :type limit: int
     :param media_type: Specifies the type of media to filter the gags (optional).
         Defaults to None, which means no filtering will be applied.
+    :type media_type: Literal["animated", "photo", "article"]
     :return: A list of paginated gags.
+    :rtype: list
     """
     gags_list: list = []
     next_cursor: str = "c=10"
@@ -100,6 +105,20 @@ async def get_gags(
     limit: int,
     media_type: Literal["animated", "photo", "article"] = None,
 ) -> list:
+    """
+    Asynchronously gets gags with the specified media type.
+
+    :param endpoint: ENdpoint from which gags will be fetched.
+    :type endpoint: str
+    :param session: An Aiohttp session to use for the request.
+    :type session: aiohttp.ClientSession
+    :param limit: Maximum number of gags to fetch.
+    :type limit: int
+    :param media_type: Media type for the fetched gags.
+    :type media_type: Literal["animated", "photo", "article"]
+    :return: A list of gags.
+    :rtype: list
+    """
     # Fetch the original response
     response = await get_data(endpoint, session)
 

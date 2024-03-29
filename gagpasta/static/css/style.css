@@ -1,12 +1,4 @@
 <style>
-    /* Font Setup */
-    @font-face {
-        font-family: 'Bebas Neue';
-        src: url('/static/fonts/BebasNeue-Regular.ttf') format('truetype');
-        font-weight: normal;
-        font-style: normal;
-    }
-
     /* Global Transition Style */
     /* Defines a smooth transition effect for various elements */
     body,
@@ -47,13 +39,13 @@
         display: none;
         padding-top: 90px;
         text-align: center;
-        font-family: 'Bebas Neue', sans-serif;
+        font-family: 'Arial';
     }
 
     /* Header Style */
     /* Styles for the main header (h1) element */
     h1 {
-        font-family: 'Bebas Neue', sans-serif;
+        font-family: 'Arial';
         text-align: center;
     }
 
@@ -69,7 +61,7 @@
     /* Gag Card Style */
     /* Styles for individual gag cards */
     .gag {
-        font-family: 'Bebas Neue', sans-serif;
+        font-family: 'Arial';
         position: relative;
         max-width: 600px;
         margin: 20px auto;
@@ -138,7 +130,7 @@
     .downvotes-count,
     .comments-count,
     .awards-count {
-        font-family: 'Bebas Neue', sans-serif;
+        font-family: 'Arial';
         display: inline-block;
         margin-top: 10px;
         padding: 5px 10px;
@@ -149,7 +141,7 @@
     /* Download Button Style */
     /* Styles for the download button on gags */
     .download-gag {
-        font-family: 'Bebas Neue', sans-serif;
+        font-family: 'Arial';
         background: none;
         display: inline-block;
         margin-top: 10px;
@@ -179,7 +171,7 @@
         text-decoration: underline;
     }
     .username {
-        font-family: 'Bebas Neue', sans-serif;
+        font-family: 'Arial';
         font-size: 0.9em;
         cursor: default;
         margin-top: 4px;
@@ -259,7 +251,7 @@
         margin-top: 20px;
         padding: 20px;
         border-radius: 8px;
-        font-family: 'Bebas Neue', sans-serif;
+        font-family: 'Arial';
     }
     label {
         display: block;
@@ -273,7 +265,7 @@
         border: 1px solid;
         border-radius: 5px;
         box-sizing: border-box;
-        font-family: 'Bebas Neue', sans-serif;
+        font-family: 'Arial';
     }
     input:required:invalid {
         border: 2px solid #ff6b81;
@@ -296,7 +288,7 @@
         text-align: center;
         margin-top: 40px;
         font-size: 0.8em;
-        font-family: 'Bebas Neue', sans-serif;
+        font-family: 'Arial';
     }
 
     /* Hover Effect for Download Button, */
@@ -392,7 +384,7 @@
         box-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
         max-width: 800px; /* Restrict max width for readability */
         text-align: left; /* Ensures content within .api-docs is left-aligned */
-        font-family: 'Bebas Neue', sans-serif;
+        font-family: 'Arial';
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 
