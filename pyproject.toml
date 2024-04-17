@@ -28,7 +28,7 @@ python = "^3.10"
 aiohttp = "^3.9.1"
 flask = { version = "^3.0.1", extras = ["async"] }
 flask-limiter = { version = "^3.5.0", extras = ["redis"] }
-gunicorn = "^21.2.0"
+gunicorn = "^22.0.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.4.0"
